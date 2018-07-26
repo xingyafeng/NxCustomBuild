@@ -137,6 +137,8 @@ PRODUCT_PACKAGES += AiosAdapterVoice
 PRODUCT_PACKAGES += AiosAdapter
 PRODUCT_PACKAGES += AiosDaemon
 PRODUCT_PACKAGES += YOcVoiceAssistant
+PRODUCT_PACKAGES += libandfix libBugly libjpush217 liblasa libmp3lame
+PRODUCT_PACKAGES += aios.properties aios.provision wechat.properties
 else ifeq ($(strip $(YUNOVO_VOICE_TYPE)), baidu_voice)
 PRODUCT_PACKAGES += TxzVoice
 PRODUCT_PACKAGES += BaiduCodriver
@@ -148,6 +150,8 @@ PRODUCT_PACKAGES += AiosAdapterVoice
 PRODUCT_PACKAGES += AiosAdapter
 PRODUCT_PACKAGES += AiosDaemon
 PRODUCT_PACKAGES += YOcVoiceAssistant
+PRODUCT_PACKAGES += libandfix libBugly libjpush217 liblasa libmp3lame
+PRODUCT_PACKAGES += aios.properties aios.provision wechat.properties
 endif
 
 ## 4. 输入法
