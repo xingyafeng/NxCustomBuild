@@ -14,7 +14,13 @@ $(info including $(call my-dir)/definitions.mk ...)
 
 # $(TARGET_DEVICE) = magc6580_we_l  $(TARGET_PRODUCT) = full_magc6580_we_l
 # 寻找相应 device 的 mk 文件，常用于 AndroidProducts.mk BoardConfig.mk
-define find-yunovo-dev-mk
+define find-dev-platform-mk
+$(strip $(wildcard \
+  $(shell test -d yunovo/NxCustomBuild/device && find yunovo/NxCustomBuild/device -maxdepth 4 -path '*/$(TARGET_DEVICE)/$(1).mk') \
+))
+endef
+
+define find-dev-common-mk
 $(strip $(wildcard \
   $(shell test -d yunovo/NxCustomBuild/device && find yunovo/NxCustomBuild/device -maxdepth 4 -path '*/$(1).mk') \
 ))
@@ -52,7 +58,7 @@ $(call moved-yunovo-var,$(_yunovo_cached_var_list),YUNOVO_CACHED_)
 #$(call dump-yunovo-var,$(_yunovo_cached_var_list),YUNOVO_CACHED_)
 
 ## 1. AndroidProducts.mk
-yunovo_android_products_mk = $(call find-yunovo-dev-mk,AndroidProducts)
+yunovo_android_products_mk = $(call find-dev-common-mk,AndroidProducts)
 ifeq ($(words $(yunovo_android_products_mk)),1)
   $(info  include AndroidProducts ... )
   -include $(yunovo_android_products_mk)
@@ -61,7 +67,7 @@ else ifneq ($(words $(yunovo_board_config_mk)),0)
 endif
 
 ## 2. BoardConfig.mk
-yunovo_board_config_mk = $(call find-yunovo-dev-mk,BoardConfig)
+yunovo_board_config_mk = $(call find-dev-platform-mk,BoardConfig)
 #$(info  len- $(words ${yunovo_board_config_mk}) - )
 #$(check-yunovo-sing-mk,yunovo_board_config_mk)
 ifeq ($(words $(yunovo_board_config_mk)),1)
@@ -72,7 +78,7 @@ else ifneq ($(words $(yunovo_board_config_mk)),0)
 endif
 
 ## 3. ProjectConfig.mk
-yunovo_project_config_mk := $(call find-yunovo-dev-mk,ProjectConfig)
+yunovo_project_config_mk := $(call find-dev-platform-mk,ProjectConfig)
 ifeq ($(words $(yunovo_project_config_mk)),1)
   $(info  include ProjectConfig ... )
   -include $(yunovo_project_config_mk)
