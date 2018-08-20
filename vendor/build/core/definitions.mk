@@ -26,6 +26,10 @@ $(strip $(wildcard \
 ))
 endef
 
+define get-product-packages
+  $(filter $(1), $(PRODUCT_PACKAGES))
+endef
+
 define check-yunovo-sing-mk
 $(info $(1) = $(words $(1)) )
 $(info ${yunovo_board_config_mk} - $(words ${yunovo_board_config_mk}) )
