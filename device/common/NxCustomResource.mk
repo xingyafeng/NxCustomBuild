@@ -37,9 +37,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 
 ## default launcher
-ifeq ($(call get-product-packages, YOcLauncher), YOcLauncher)
+ifeq ($(strip $(call get-product-packages, YOcLauncher)), YOcLauncher)
 YUNOVO_LAUNCHER_TYPE = yoc
-else ifeq ($(call get-product-packages, CarEngine), CarEngine)
+else ifeq ($(strip $(call get-product-packages, CarEngine)), CarEngine)
 YUNOVO_LAUNCHER_TYPE = car
 else
 PRODUCT_PACKAGES += Launcher3
