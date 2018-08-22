@@ -29,3 +29,9 @@ ifneq ($(YOV_CUSTOM),)
     YUNOVO_CUSTOM_P :=
   endif
 endif
+
+## 默认打开odex (user)
+ifeq ($(TARGET_BUILD_VARIANT),user)
+WITH_DEXPREOPT := true
+WITH_DEXPREOPT_PIC := true
+endif
