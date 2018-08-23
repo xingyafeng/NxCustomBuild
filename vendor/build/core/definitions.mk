@@ -30,6 +30,10 @@ define get-product-packages
   $(filter $(1), $(PRODUCT_PACKAGES))
 endef
 
+define get-app-version
+  $(subst $(1),,$(2))
+endef
+
 define check-yunovo-sing-mk
 $(info $(1) = $(words $(1)) )
 $(info ${yunovo_board_config_mk} - $(words ${yunovo_board_config_mk}) )
