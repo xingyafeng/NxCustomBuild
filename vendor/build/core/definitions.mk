@@ -27,7 +27,7 @@ $(strip $(wildcard \
 endef
 
 define get-product-packages
-  $(filter $(1), $(PRODUCT_PACKAGES))
+  $(filter $(1)%, $(PRODUCT_PACKAGES))
 endef
 
 define get-app-version
