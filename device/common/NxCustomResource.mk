@@ -42,13 +42,12 @@ YUNOVO_LAUNCHER_TYPE = yoc
 else ifneq ($(strip $(call get-product-packages, CarEngine)),)
 YUNOVO_LAUNCHER_TYPE = car
 else
-PRODUCT_PACKAGES += Launcher3
-YUNOVO_LAUNCHER_TYPE = android
+YUNOVO_LAUNCHER_TYPE = droidcar
 endif
 
 AiosDaemonVersion := $(strip $(call get-product-packages, AiosDaemon))
 ifneq ($(words $(AiosDaemonVersion)),1)
-  $(error $(AiosDaemonVersion) redefinition ...)
+  $(warning aios -- $(AiosDaemonVersion) redefinition or no definition ...)
 endif
 
 endif ### SPT_VERSION_NO endif
