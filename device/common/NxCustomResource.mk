@@ -46,6 +46,7 @@ PRODUCT_PACKAGES += Launcher3
 YUNOVO_LAUNCHER_TYPE = android
 endif
 
+AiosDaemonVersion := $(strip $(call get-product-packages, AiosDaemon))
 endif ### SPT_VERSION_NO endif
 
 #####################
