@@ -47,6 +47,10 @@ YUNOVO_LAUNCHER_TYPE = android
 endif
 
 AiosDaemonVersion := $(strip $(call get-product-packages, AiosDaemon))
+ifneq ($(words $(AiosDaemonVersion)),1)
+  $(error $(AiosDaemonVersion) redefinition ...)
+endif
+
 endif ### SPT_VERSION_NO endif
 
 #####################
