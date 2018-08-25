@@ -25,6 +25,7 @@ YUNOVO_DEVICE_P = device/$(YUNOVO_BOARD)/$(MTK_TARGET_PROJECT)
 ifneq ($(YOV_CUSTOM),)
   ifneq ($(YOV_PROJECT),)
     YUNOVO_CUSTOM_P = $(YOV_CUSTOM)/$(YOV_PROJECT)
+    FOTA_SH := yunovo/NxCustomResource/system/apk/AdupsFotaApp
   else
     YUNOVO_CUSTOM_P :=
   endif
