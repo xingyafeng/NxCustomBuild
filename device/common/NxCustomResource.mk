@@ -54,6 +54,10 @@ endif ### SPT_VERSION_NO endif
 
 #####################
 
+ifeq ($(strip $(YUNOVO_LAUNCHER_TYPE)),)
+YUNOVO_LAUNCHER_TYPE := Android
+endif
+
 ifeq ($(filter dumpvar-%,$(MAKECMDGOALS)),)
 $(warning "===========================================================")
 $(warning "    主界面 : ")
