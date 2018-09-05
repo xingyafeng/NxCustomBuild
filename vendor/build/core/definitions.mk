@@ -34,6 +34,11 @@ define get-app-version
   $(subst $(1),,$(2))
 endef
 
+YUNOVO_BOARD_LIST := k21 mk21 mk26 mk01 cm01
+define get_yov_board
+  $(filter $(YOV_BOARD), $(YUNOVO_BOARD_LIST))
+endef
+
 define check-yunovo-sing-mk
 $(info $(1) = $(words $(1)) )
 $(info ${yunovo_board_config_mk} - $(words ${yunovo_board_config_mk}) )
@@ -138,8 +143,6 @@ ifneq ($(Y_REMOVE_PRODUCT_PACKAGES),)
  PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES := $(filter-out $(Y_REMOVE_PRODUCT_PACKAGES),$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES))
  PRODUCT_PACKAGES := $(filter-out $(Y_REMOVE_PRODUCT_PACKAGES),$(PRODUCT_PACKAGES))
  #$(warning  PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES = $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES) )
-
- $(info  <remove after> PRODUCT_PACKAGES = $(PRODUCT_PACKAGES) )
 
  #清空值，后续无需使用
  Y_REMOVE_PRODUCT_PACKAGES :=

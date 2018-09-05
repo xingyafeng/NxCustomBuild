@@ -21,7 +21,7 @@ YUNOVO_COMMON = device/common
 ## 客制化产品路径
 YUNOVO_DEVICE_P = device/$(YUNOVO_BOARD)/$(MTK_TARGET_PROJECT)
 
-## 客制化路径
+## 是否为zen平台构建.
 ifneq ($(YOV_CUSTOM),)
   ifneq ($(YOV_PROJECT),)
     is_zen_project := true
@@ -36,6 +36,7 @@ WITH_DEXPREOPT := true
 WITH_DEXPREOPT_PIC := true
 endif
 
+## 客制化路径
 ifdef is_zen_project
     YUNOVO_CUSTOM_P = $(YOV_CUSTOM)/$(YOV_PROJECT)
 else
@@ -44,3 +45,6 @@ endif
 
 ## 广深OTA脚本路径. FOTA_SH用于区非zen平台.原路径:yunovo/packages/apps/AdupsFotaApp
 FOTA_SH := yunovo/NxCustomResource/system/apk/AdupsFotaApp
+
+## 裁剪系统应用模块
+include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/SystemRemoveAppConfig.mk
