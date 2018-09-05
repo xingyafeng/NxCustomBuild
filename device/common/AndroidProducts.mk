@@ -47,4 +47,4 @@ endif
 FOTA_SH := yunovo/NxCustomResource/system/apk/AdupsFotaApp
 
 ## 裁剪系统应用模块
-include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/SystemRemoveAppConfig.mk
+include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/RemoveSystemAppConfig.mk
