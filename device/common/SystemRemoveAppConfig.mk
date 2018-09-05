@@ -1,8 +1,5 @@
 # system remove app config
 
-bb = $(call get_yov_board)
-$(info bb = $(bb))
-
 ##################### Jenkins构建裁剪模块
 ifneq ($(strip $(SPT_VERSION_NO)),)
   ifeq ($(strip $(call get_yov_board)), cm01)
