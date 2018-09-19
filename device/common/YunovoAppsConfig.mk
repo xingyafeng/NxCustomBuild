@@ -18,7 +18,7 @@ PRODUCT_PACKAGES += \
 	YOcLogDog \
 	CarBandMode
 
-PRODUCT_PACKAGES += yovd init.yunovo.rc
+PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
 
 ## 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk
