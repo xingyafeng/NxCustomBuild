@@ -36,6 +36,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 
+PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
+
 ## default launcher
 ifneq ($(strip $(call get-product-packages, YOcLauncher)),)
 YUNOVO_LAUNCHER_TYPE = yoc
