@@ -27,6 +27,10 @@ $(strip $(wildcard \
 endef
 
 define get-product-packages
+  $(filter $(1)%, $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES))
+endef
+
+define get-product-packages-custom
   $(filter $(1)%, $(PRODUCT_PACKAGES))
 endef
 

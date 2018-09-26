@@ -7,19 +7,19 @@ $(info including $(call my-dir)/AndroidProducts.mk ...)
 ## 云智根路径
 YUNOVO_ROOT = yunovo
 
-## Zen 计划仓库名
+## Zen计划仓库名
 YUNOVO_CONFIG = NxCustomConfig
 YUNOVO_BUILD  = NxCustomBuild
 YUNOVO_RES    = NxCustomResource
 
 ## 客制化产品
-YUNOVO_BOARD = $(shell find device/ -maxdepth 2 -name $(MTK_TARGET_PROJECT) | awk -F/ '{print $$2}')
+YUNOVO_BOARD = $(shell find device/ -maxdepth 3 -name $(TARGET_DEVICE) | awk -F/ '{print $$2}')
 
 ## 公共模块
 YUNOVO_COMMON = device/common
 
 ## 客制化产品路径
-YUNOVO_DEVICE_P = device/$(YUNOVO_BOARD)/$(MTK_TARGET_PROJECT)
+YUNOVO_DEVICE_P = device/$(YUNOVO_BOARD)/$(TARGET_DEVICE)
 
 ## 是否为zen平台构建.
 ifneq ($(YOV_CUSTOM),)

@@ -39,18 +39,14 @@ PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
 
 ## default launcher
-ifneq ($(strip $(call get-product-packages, YOcLauncher)),)
+ifneq ($(strip $(call get-product-packages-custom, YOcLauncher)),)
 YUNOVO_LAUNCHER_TYPE = yoc
-else ifneq ($(strip $(call get-product-packages, CarEngine)),)
+else ifneq ($(strip $(call get-product-packages-custom, CarEngine)),)
 YUNOVO_LAUNCHER_TYPE = car
 else
 YUNOVO_LAUNCHER_TYPE = droidcar
 endif
 
-AiosDaemonVersion := $(strip $(call get-product-packages, AiosDaemon))
-ifneq ($(words $(AiosDaemonVersion)),1)
-  $(warning aios -- $(AiosDaemonVersion) redefinition or no definition ...)
-endif
 
 endif ### SPT_VERSION_NO endif
 
