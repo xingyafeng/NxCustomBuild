@@ -54,7 +54,7 @@ foreach $item (@items)
                 	if ( $item =~  /<Flag>(.*)<\/Flag>/ig )
                 	{
                         #print  PACFH "$idparm=$1@."."\n";
-                        print  PACFH "$idparm=1@."."\n";
+                        print  PACFH "$idparm=1@"."\n";
                 	}
 		}
         }

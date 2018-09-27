@@ -30,138 +30,138 @@ function touch_custom_pac_ini()
 
             PAC_CONFILE=)
                 ret="SharkLSGLobalMarlinAndroid6.0.xml"
-                sed -i "s#${line}#${line}./$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            FDL=1@.)
+            FDL=1@)
                 ret="fdl1.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
             ## 射频参数
-            FDL2=1@.)
+            FDL2=1@)
                 ret="fdl2.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            NV_WLTE=1@.)
+            NV_WLTE=1@)
                 ret="nvitem.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            PhaseCheck=1@.)
+            PhaseCheck=1@)
                 ret="PhaseCheck=1@"
                 sed -i "s#${line}#$ret#g" $tmpfs/pac.ini
                 ;;
 
-            EraseUBOOT=1@.)
+            EraseUBOOT=1@)
                 ret="EraseUBOOT=1@"
                 sed -i "s#${line}#$ret#g" $tmpfs/pac.ini
                 ;;
 
-            ProdNV=1@.)
+            ProdNV=1@)
                 ret="prodnv.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            SPLLoader=1@.)
+            SPLLoader=1@)
                 ret="u-boot-spl-16k.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            Modem_WLTE=1@.)
+            Modem_WLTE=1@)
                 ret="SC9600_sharkls_3593_CUST_Base_NV_MIPI.dat"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            DSP_WLTE_LTE=1@.)
+            DSP_WLTE_LTE=1@)
                 ret="LTE_DSP.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            DSP_WLTE_GGE=1@.)
+            DSP_WLTE_GGE=1@)
                 ret="SHARKL_DM_DSP.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            WARM_WLTE=1@.)
+            WARM_WLTE=1@)
                 ret="SC9600_sharkl_wphy_5mod_volte_zc.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            DFS=1@.)
+            DFS=1@)
                 ret="PM_sharkls_arm7.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            FDL_WCN=1@.)
+            FDL_WCN=1@)
                 ret="fld_wcn.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            Modem_WCN=1@.)
+            Modem_WCN=1@)
                 ret="EXEC_KERNEL_IMAGE0.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            BOOT=1@.)
+            BOOT=1@)
                 ret="boot.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            Recovery=1@.)
+            Recovery=1@)
                 ret="recovery.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            System=1@.)
+            System=1@)
                 ret="system.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            UserData=1@.)
+            UserData=1@)
                 ret="userdata.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            BootLogo=1@.)
+            BootLogo=1@)
                 ret="logo.bmp"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            Fastboot_Logo=1@.)
+            Fastboot_Logo=1@)
                 ret="logo.bmp"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            Cache=1@.)
+            Cache=1@)
                 ret="cache.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            FLASH_WLTE=1@.)
+            FLASH_WLTE=1@)
                 ret="FLASH_WLTE=1@"
                 sed -i "s#${line}#$ret#g" $tmpfs/pac.ini
                 ;;
 
-            EraseMisc=1@.)
+            EraseMisc=1@)
                 ret="EraseMisc=1@"
                 sed -i "s#${line}#$ret#g" $tmpfs/pac.ini
                 ;;
 
-            Persist=1@.)
+            Persist=1@)
                 ret="persist.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            SysInfo=1@.)
+            SysInfo=1@)
                 ret="sysinfo.img"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
-            UBOOTLoader=1@.)
+            UBOOTLoader=1@)
                 ret="u-boot.bin"
-                sed -i "s#${line}#${line}/$IMG/$ret#g" $tmpfs/pac.ini
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
             *)
