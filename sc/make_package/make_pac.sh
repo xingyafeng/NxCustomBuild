@@ -309,7 +309,7 @@ function main()
     local BASE_PAC=pac.ini
     local IMG=release_images/$PRODUCT_BRAND
 
-    if [ ! -d $tmpfs]; then
+    if [ ! -d $tmpfs ]; then
         mkdir -p $tmpfs
     fi
 
