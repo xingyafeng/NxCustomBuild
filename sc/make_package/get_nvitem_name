@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#返回NV文件的文件名称
+var=$(grep  "ro.hyst.nvitem.name=" "$1")
+nvitem_name=${var##"ro.hyst.nvitem.name="}
+nvitem_name=${nvitem_name/ /}
+echo "${nvitem_name}"
+exit 3

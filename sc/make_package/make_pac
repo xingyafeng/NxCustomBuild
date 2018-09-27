@@ -1,0 +1,967 @@
+#!/usr/bin/perl
+
+#----------------------------------------------#
+# Only packet for SharkL3Mode
+#----------------------------------------------#
+use Cwd;
+use File::Basename;
+use Encode;
+##use utf8::all;
+#use FindBin qw($Bin);
+#my $Current_ProcDir = $Bin;
+
+##$current_dir=getcwd;
+my $use_fast_CRC = 1;
+my $param_number = scalar @ARGV;	
+my $i=0;
+my $start = time();
+
+###add by ouqijiang 20171-20
+my $boot_img="";
+my $cache_img="";
+my $EXEC_KERNEL_IMAGE="";
+my $fdl1="";
+my $fdl2="";
+my $fdl_wcn="";
+my $logo_bmp="";
+my $lte_dsp="";
+my $persist_img="";
+my $pm_sharkls_arm="";
+my $prodnv_img="";
+my $recovery_img="";
+my $CUST_Base_NV_MIPI="";
+my $mod_volte_zc="";
+my $SHARKL_DM_DSP="";
+my $SharkLSGLobalMarlin="";
+my $sysinfo_img="";
+my $system_img="";
+my $nv_item="";
+my $uboot_bin="";
+my $uboot_spl_16k="";
+my $userdata_img="";
+my $file_path="";
+###add by ouqijiang 20171-20
+my $hint_begin="拷贝文件已经完成，下面开始把所有的镜像文件进行打包成pac版本";
+##my $hint_begin_ex=decode("utf8",$hint_begin);
+my $hint_end="已经把所有镜像打包完成了！";
+##my $hint_end_ex=decode("utf8",$hint_begin);
+my $version_num="软件版本号";
+##my $version_num_ex=decode("utf8",$version_num);
+my $partition_num="分区个数";
+##my $partition_num_ex=decode("utf8",$partition_num);
+my $handle_now="正在写入镜像";
+my $image_size="镜像大小";
+my $pac_size="压缩后pac包大小";
+my $total_time="打包所需时间";
+my $zip_hint="正在把pac包压缩成zip，请稍等……";
+
+my $brand_name="";
+
+$brand_name = qx(./make_package/get_brand_name '${ARGV[1]}/system/build.prop');
+my $exitcode = $? >>8;
+chomp($brand_name);###去掉换行符
+my $dirname = "release_images/$brand_name";
+##print "\n-----------brand_name = $brand_name,dirname = $dirname---------------------------\n";
+
+if($param_number == 2){
+###.查找NV文件名称开始
+ $nvitem_name = qx(./make_package/get_nvitem_name '${ARGV[1]}/system/build.prop');
+ chomp($nvitem_name);###去掉换行符
+if($nvitem_name eq Unknow){
+ exit 0;
+}
+ $exitcode = $? >>8;
+##print "nvitem_name = ".$nvitem_name."\n";
+ if($exitcode == 3){
+   $nv_item = "${dirname}/$nvitem_name";
+   ##print "nv_item = ".$nv_item."\n";
+ }else{
+   die "The exitcode must be 3 by get_nvitem_name return!";
+ }
+###.查找NV文件名称结束
+}
+
+print "\n\n---------------------------$hint_begin---------------------------\n";
+our $numbers = 0;
+Images_patch_init();
+##print "\n\n-----------The images numbers = $numbers in pac---------------------------\n";
+if($numbers ne 22){
+    die "\nThe images number at least greater than 22 in folder $dirname\n\n";
+}
+
+##print "\n------------------param_number = $param_number --------------------";
+##print "\n\n--------------------------------------\n";
+##for($i=0;$i<$number;$i++)
+##{
+##	print ${ARGV[$i]}." "
+##}
+##print "\n--------------------------------------\n\n";
+					
+##if($number ne 26){
+##    die "\nInvalid parameters, param number must be 26.\n\n";
+##}
+
+my $pac_file       =${ARGV[0]}.".pac";
+my $pac_prj        ="SC9832";
+my $pac_ver        =${ARGV[0]};
+my $config         =${SharkLSGLobalMarlin};
+
+
+#####如果外来参数是2个
+if($param_number == 2){
+###一.返回软件版本号，如果版本号有空格，用下划线替代空格
+$display_id = qx(./make_package/get_display_id '${ARGV[1]}/system/build.prop');
+$exitcode = $? >>8;
+chomp($display_id);###去掉换行符
+##print "display_id = ".$display_id."\n";
+##print "exitcode = ".$exitcode."\n";
+ if($exitcode == 1){
+  $pac_file = $display_id.".pac";
+  ##print "pac_file = ".$pac_file."\n";
+  $pac_ver  = $display_id;
+ }else{
+  die "The exitcode return by get_display_id must be 1";
+ }
+}
+#####如果外来参数是2个
+
+###二.返回system size的值开始
+###$size = qx(./make_package/get_systemimage_size);
+###$exitcode = $? >>8;
+##print "size = ".$size."\n";
+##print "exitcode = ".$exitcode."\n";
+
+###if($exitcode == 2){
+####获取system.img的文件大小
+###my $sys_size = -s "$dirname/system.img";
+###my $sys_size = ($sys_size / 1000 ) / 1000;
+###$sys_size = int($sys_size);
+##print "sys_size = ".$sys_size."\n";
+####在此基础上增加100MB，用于修改xml文件SharkLSGLobalMarlinAndroid6.0.xml的system size的值
+###$file_size = int(($sys_size + 100) / 10);
+###$file_size_inc = ($file_size * 10) + 10;
+##print "file_size_inc = ".$file_size_inc."\n";
+####替换表达式
+###$size_str ="size=\"$size\"";
+###$size_str_replace ="size=\"$file_size_inc\"";
+
+###my $cmd_str="find $dirname -name 'SharkLSGLobalMarlinAndroid6.0.xml' | xargs perl -pi -e 's|$size_str|$size_str_replace|g'";
+###  if($size != $file_size_inc){
+###   if (system($cmd_str)){
+###     die "can not change system size in $xml_name!";
+###    }
+###   }
+###}else{
+###  die "the return value EROOR in get_systemimage_size file!!";
+###}
+###二.返回system size的值结束
+
+
+###my $index = 4;
+###my @param = (
+###   #ID              , file_path          , file_flag, check_flag, omit_flag, addr1     , addr2 
+###   ["FDL"           , $fdl1              , 0x0101   , 1,        , 0        , 0x50000000, 0xFFFFFFFF  ],
+###   ["FDL2"          , $fdl2              , 0x0101   , 1,        , 0        , 0x9F000000, 0xFFFFFFFF  ],
+###   ["NV_WLTE"       , $nv_item           , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["ProdNV"        , $prodnv_img        , 1        , 1,        , 0        , 0x0       , 0x500000    ],
+###   ["PhaseCheck"    , ""                 , 0        , 1,        , 0        , 0x0       , 0x100000    ],
+###   ["EraseUBOOT"    , ""                 , 0        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+###   ["SPLLoader"     , $uboot_spl_16k     , 1        , 1,        , 0        , 0x80000000 ,0xFFFFFFFF  ],
+###   ["Modem_WLTE"    , $CUST_Base_NV_MIPI , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["DSP_WLTE_LTE"  , $lte_dsp           , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["DSP_WLTE_GGE"  , $SHARKL_DM_DSP     , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["WARM_WLTE"     , $mod_volte_zc      , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["DFS"           , $pm_sharkls_arm    , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["FDL_WCN"       , $fdl_wcn           , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+###   ["Modem_WCN"     , $EXEC_KERNEL_IMAGE , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+###   ["BOOT"          , $boot_img          , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["Recovery"      , $recovery_img      , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["System"        , $system_img        , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["UserData"      , $userdata_img      , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["BootLogo"      , $logo_bmp          , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["Fastboot_Logo" , $logo_bmp          , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+###   ["Cache"         , $cache_img         , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+###   ["FLASH_WLTE"    , ""                 , 0        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["EraseMisc"     , ""                 , 0        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["EraseSD"       , ""                 , 0        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+###   ["Persist"       , $persist_img       , 1        , 1         , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["SysInfo"       , $sysinfo_img       , 1        , 1         , 0        , 0x0       , 0xFFFFFFFF  ],
+###   ["UBOOTLoader"   , $uboot_bin         , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   #config must be the last one
+###  [""              , $config            , 2        , 0,        , 0        , 0x0       , 0xFFFFFFFF  ],
+###);
+
+
+my @param = (
+   #ID              , file_path          , file_flag, check_flag, omit_flag, addr1     , addr2 
+   ["FDL"           , $fdl1              , 0x0101   , 1,        , 0        , 0x50000000, 0xFFFFFFFF  ],
+   ["FDL2"          , $fdl2              , 0x0101   , 1,        , 0        , 0x9F000000, 0xFFFFFFFF  ],
+   ["NV_WLTE"       , $nv_item           , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["ProdNV"        , $prodnv_img        , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["PhaseCheck"    , ""                 , 0        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["EraseUBOOT"    , ""                 , 0        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+   ["SPLLoader"     , $uboot_spl_16k     , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["Modem_WLTE"    , $CUST_Base_NV_MIPI , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["DSP_WLTE_LTE"  , $lte_dsp           , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["DSP_WLTE_GGE"  , $SHARKL_DM_DSP     , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["WARM_WLTE"     , $mod_volte_zc      , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["DFS"           , $pm_sharkls_arm    , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["FDL_WCN"       , $fdl_wcn           , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+   ["Modem_WCN"     , $EXEC_KERNEL_IMAGE , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+   ["BOOT"          , $boot_img          , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["Recovery"      , $recovery_img      , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["System"        , $system_img        , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["UserData"      , $userdata_img      , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["BootLogo"      , $logo_bmp          , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["Fastboot_Logo" , $logo_bmp          , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+   ["Cache"         , $cache_img         , 1        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+   ["FLASH_WLTE"    , ""                 , 0        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["EraseMisc"     , ""                 , 0        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["EraseSD"       , ""                 , 0        , 1,        , 1        , 0x0       , 0xFFFFFFFF  ],
+   ["UBOOTLoader"   , $uboot_bin         , 1        , 1,        , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["SysInfo"       , $sysinfo_img       , 1        , 1         , 0        , 0x0       , 0xFFFFFFFF  ],
+   ["Persist"       , $persist_img       , 1        , 1         , 0        , 0x0       , 0xFFFFFFFF  ],
+   #config must be the last one
+   [""              , $config            , 2        , 0,        , 0        , 0x0       , 0xFFFFFFFF  ],
+);
+
+
+my $file_count = scalar @param;	
+
+for($i=0;$i<$file_count;$i++)
+{
+	my $file_path = $param[$i][1]; 
+	if($file_path && !-f $file_path)
+	{
+		die "\nInvalid parameters, file [".$file_path."] don't exist.\n\n";
+	}
+}
+##version number
+print "$version_num: $pac_ver\n";
+###images number
+print " $partition_num: $file_count\n";
+
+###delete pac file before make pac
+if($pac_file && -f $pac_file){
+ unlink  $pac_file;
+}
+###delete pac file before make pac
+
+###change the Product name in $config
+my $cmd_str="find $dirname -name 'SharkLSGLobalMarlinAndroid6.0.xml' | xargs perl -pi -e 's|SharkLSGLobalMarlinAndroid5.1|SC9832|g'";
+if (system($cmd_str)){
+ ##die "change the Product name in $config fail";
+}
+###change the Product name in $config
+
+my @crc16_table = (
+        0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241,
+        0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1, 0xC481, 0x0440,
+        0xCC01, 0x0CC0, 0x0D80, 0xCD41, 0x0F00, 0xCFC1, 0xCE81, 0x0E40,
+        0x0A00, 0xCAC1, 0xCB81, 0x0B40, 0xC901, 0x09C0, 0x0880, 0xC841,
+        0xD801, 0x18C0, 0x1980, 0xD941, 0x1B00, 0xDBC1, 0xDA81, 0x1A40,
+        0x1E00, 0xDEC1, 0xDF81, 0x1F40, 0xDD01, 0x1DC0, 0x1C80, 0xDC41,
+        0x1400, 0xD4C1, 0xD581, 0x1540, 0xD701, 0x17C0, 0x1680, 0xD641,
+        0xD201, 0x12C0, 0x1380, 0xD341, 0x1100, 0xD1C1, 0xD081, 0x1040,
+        0xF001, 0x30C0, 0x3180, 0xF141, 0x3300, 0xF3C1, 0xF281, 0x3240,
+        0x3600, 0xF6C1, 0xF781, 0x3740, 0xF501, 0x35C0, 0x3480, 0xF441,
+        0x3C00, 0xFCC1, 0xFD81, 0x3D40, 0xFF01, 0x3FC0, 0x3E80, 0xFE41,
+        0xFA01, 0x3AC0, 0x3B80, 0xFB41, 0x3900, 0xF9C1, 0xF881, 0x3840,
+        0x2800, 0xE8C1, 0xE981, 0x2940, 0xEB01, 0x2BC0, 0x2A80, 0xEA41,
+        0xEE01, 0x2EC0, 0x2F80, 0xEF41, 0x2D00, 0xEDC1, 0xEC81, 0x2C40,
+        0xE401, 0x24C0, 0x2580, 0xE541, 0x2700, 0xE7C1, 0xE681, 0x2640,
+        0x2200, 0xE2C1, 0xE381, 0x2340, 0xE101, 0x21C0, 0x2080, 0xE041,
+        0xA001, 0x60C0, 0x6180, 0xA141, 0x6300, 0xA3C1, 0xA281, 0x6240,
+        0x6600, 0xA6C1, 0xA781, 0x6740, 0xA501, 0x65C0, 0x6480, 0xA441,
+        0x6C00, 0xACC1, 0xAD81, 0x6D40, 0xAF01, 0x6FC0, 0x6E80, 0xAE41,
+        0xAA01, 0x6AC0, 0x6B80, 0xAB41, 0x6900, 0xA9C1, 0xA881, 0x6840,
+        0x7800, 0xB8C1, 0xB981, 0x7940, 0xBB01, 0x7BC0, 0x7A80, 0xBA41,
+        0xBE01, 0x7EC0, 0x7F80, 0xBF41, 0x7D00, 0xBDC1, 0xBC81, 0x7C40,
+        0xB401, 0x74C0, 0x7580, 0xB541, 0x7700, 0xB7C1, 0xB681, 0x7640,
+        0x7200, 0xB2C1, 0xB381, 0x7340, 0xB101, 0x71C0, 0x7080, 0xB041,
+        0x5000, 0x90C1, 0x9181, 0x5140, 0x9301, 0x53C0, 0x5280, 0x9241,
+        0x9601, 0x56C0, 0x5780, 0x9741, 0x5500, 0x95C1, 0x9481, 0x5440,
+        0x9C01, 0x5CC0, 0x5D80, 0x9D41, 0x5F00, 0x9FC1, 0x9E81, 0x5E40,
+        0x5A00, 0x9AC1, 0x9B81, 0x5B40, 0x9901, 0x59C0, 0x5880, 0x9841,
+        0x8801, 0x48C0, 0x4980, 0x8941, 0x4B00, 0x8BC1, 0x8A81, 0x4A40,
+        0x4E00, 0x8EC1, 0x8F81, 0x4F40, 0x8D01, 0x4DC0, 0x4C80, 0x8C41,
+        0x4400, 0x84C1, 0x8581, 0x4540, 0x8701, 0x47C0, 0x4680, 0x8641,
+        0x8201, 0x42C0, 0x4380, 0x8341, 0x4100, 0x81C1, 0x8081, 0x4040 );
+
+die "parameter error" if !CheckParam();
+
+my $fhTarget;
+open($fhTarget, "+>$pac_file") or die "Can't open $pac_file";
+binmode $fhTarget;
+
+
+#[[ pack file header
+my $szVersion; 			# packet struct version, unicode, total size is 48 bytes
+my $dwSize;           		# the whole packet size, 4 bytes
+my $szPrdName;   		# product name, total size is 512 bytes
+my $szPrdVersion;       	# product version, total size is 512 bytes
+my $nFileCount;         	# the number of files that will be downloaded, the file may be an operation, 4 bytes
+my $dwFileOffset;		# the offset from the packet file header to the array of FILE_T struct buffer, 4 bytes
+my $dwMode;			# 4 bytes
+my $dwFlashType;		# 4 bytes
+my $dwNandStrategy;		# 4 bytes
+my $dwIsNvBackup;		# 4 bytes
+my $dwNandPageType;		# 4 bytes
+my $szPrdAlias;    		# 200 bytes
+my $dwOmaDmProductFlag;		# 4 bytes
+my $dwIsOmaDM;			# 4 bytes
+my $dwIsPreload;		# 4 bytes
+my $dwReserved;			# 800 bytes
+my $dwMagic;			# 4 bytes
+my $wCRC1;			# 2 bytes
+my $wCRC2;			# 2 bytes
+#]] total 2124 bytes
+
+my $tmp = MakeUnicode("BP_R1.0.0");
+do{use bytes; $szVersion = $tmp.(pack("C",0) x (48 - length($tmp)));};
+
+$dwSize = GetDWORD(0);
+
+$tmp = MakeUnicode($pac_prj);
+do{use bytes;$szPrdName = $tmp.(pack("C",0) x (512 - length($tmp)));};
+
+$tmp = MakeUnicode($pac_ver);
+do{use bytes;$szPrdVersion = $tmp.(pack("C",0) x (512 - length($tmp)));};
+
+$nFileCount = GetDWORD($file_count);
+
+$dwFileOffset= GetDWORD(2124);
+
+$dwMode = GetDWORD(0);
+
+$dwFlashType= GetDWORD(1);
+$dwNandStrategy= GetDWORD(0);
+$dwIsNvBackup= GetDWORD(1);
+$dwNandPageType= GetDWORD(0);
+
+$tmp = MakeUnicode($pac_prj);
+do{use bytes;$szPrdAlias = $tmp.(pack("C",0) x (200 - length($tmp)));};
+
+$dwOmaDmProductFlag= GetDWORD(0);
+$dwIsOmaDM= GetDWORD(1);
+$dwIsPreload= GetDWORD(1);
+$dwReserved = pack("C",0) x 800; 
+$dwMagic= GetDWORD(0xFFFAFFFA);
+$wCRC1= GetWORD(0);
+$wCRC2= GetWORD(0);
+
+my $offset = 2124;
+$offset += ($file_count * 2580);
+
+my $cur_offset = $offset;
+
+do{	
+use bytes;
+print $fhTarget $szVersion;
+print $fhTarget $dwSize;
+print $fhTarget $szPrdName;
+print $fhTarget $szPrdVersion;
+print $fhTarget $nFileCount;
+print $fhTarget $dwFileOffset;
+print $fhTarget $dwMode;
+print $fhTarget $dwFlashType;
+print $fhTarget $dwNandStrategy;
+print $fhTarget $dwIsNvBackup;
+print $fhTarget $dwNandPageType;
+print $fhTarget $szPrdAlias;
+print $fhTarget $dwOmaDmProductFlag;
+print $fhTarget $dwIsOmaDM;
+print $fhTarget $dwIsPreload;
+print $fhTarget $dwReserved;
+print $fhTarget $dwMagic;
+print $fhTarget $wCRC1;
+print $fhTarget $wCRC2;
+};
+
+for($i=0; $i<$file_count; $i++)
+{
+   WriteFileInfoHeader($fhTarget,$i); 
+}
+
+for($i=0; $i<$file_count; $i++)
+{
+   WriteDLFile($fhTarget,$i); 
+}
+
+
+seek $fhTarget,48,SEEK_SET;
+
+$dwSize = GetDWORD($offset); 
+
+print $fhTarget $dwSize;
+
+close $fhTarget;
+
+#die "\ncompute crc failed.\n" if (!CalcCrc());
+if($use_fast_CRC == 1)
+{
+	my $szPara="./make_package/UpdatedPacCRC_Linux ".$pac_file;	
+	if (system($szPara))
+	{
+		unlink  $pac_file;
+		die "\ncompute crc failed.\n"
+	}
+}
+else
+{
+	if (!CalcCrc())
+	{
+		unlink  $pac_file;
+		die "\ncompute crc failed.\n" 
+	}
+}
+
+##chdir  $current_dir;
+
+print "\n$zip_hint\n";
+$pac_file_zip = $pac_ver.".zip";
+system("zip -r  $pac_file_zip  $pac_file");
+system("mv $pac_file_zip $dirname/$pac_file_zip");
+unlink $pac_file;
+my $end = time();
+my $zip_size = -s "$dirname/$pac_file_zip";
+my $zip_size = ($zip_size / 1000 ) / 1000;
+print "$pac_size: $zip_size MB, $total_time: " . ($end-$start) . "s\n";
+print "\n-------------------------------------$hint_end-----------------------------------------------\n";
+print "\n\n";
+exit  0;
+
+sub MakeUnicode{
+    my ($d) = @_;
+    $d =~ s/(.)/$1\x{00}/g;
+    return $d;
+}
+
+sub GetDWORD{    
+    my ($d) = @_;
+    #use bytes;
+    $d = pack("V",$d);
+    return $d;	
+}
+
+sub GetWORD{    
+    my ($d) = @_;
+    #use bytes;
+    $d = pack("v",$d);
+    return $d;	
+}
+
+
+sub WriteFileInfoHeader
+{
+        my $fh = shift;
+	my $index = shift;
+	my $id = $param[$index][0];
+	my $file_path = $param[$index][1];
+        my $file_flag = $param[$index][2];
+	my $check_flag = $param[$index][3];
+        my $omit_flag = $param[$index][4];
+	my $addr = $param[$index][5];
+        my $addr2 = $param[$index][6];
+
+	my $data;	
+	my $temp;
+       
+	my $dwSize;		# size of this struct itself
+	my $szFileID;		# file ID,such as FDL,Fdl2,NV and etc. 512 bytes
+	my $szFileName;    	# file name,in the packet bin file,it only stores file name. 512 bytes
+	                       	# but after unpacketing, it stores the full path of bin file
+	my $szFileVersion;  	# Reserved now. 512 bytes
+	my $nFileSize;          # file size
+	my $nFileFlag;          # if "0", means that it need not a file, and 
+	                        # it is only an operation or a list of operations, such as file ID is "FLASH"
+	                        # if "1", means that it need a file
+	my $nCheckFlag;         # if "1", this file must be downloaded; 
+	                        # if "0", this file can not be downloaded;										
+	my $dwDataOffset;       # the offset from the packet file header to this file data
+	my $dwCanOmitFlag;	# if "1", this file can not be downloaded and not check it as "All files" 
+				# in download and spupgrade tool.
+	my $dwAddrNum;
+	my $dwAddr;		# 4*5 bytes
+	my $dwReserved;     	# Reserved for future,not used now. 249x4 bytes
+
+	
+	$dwSize = GetDWORD(2580);
+	$data = $data.$dwSize;
+
+	$tmp = MakeUnicode($id);
+	do{use bytes;$szFileID = $tmp.(pack("C",0) x (512 - length($tmp)));};
+	$data = $data.$szFileID;
+
+	$tmp = $file_path;
+	$tmp =~ s/\\/\//g;
+	$tmp =~ s/.*\/(.*)$/$1/g;
+        $tmp = MakeUnicode($tmp);
+	do{use bytes;$szFileName = $tmp.(pack("C",0) x (512 - length($tmp)));};
+	$data = $data.$szFileName;
+
+	$szFileVersion = pack("C",0) x 512; 
+	$data = $data.$szFileVersion;
+
+	my $file_size = 0;
+	if($file_flag != 0 && ($check_flag != 0 || $file_flag == 2))
+	{		
+		$file_size = -s $file_path;
+		$nFileSize = GetDWORD($file_size); 
+	}
+	else
+	{
+		$nFileSize = GetDWORD(0); 	       
+	}
+
+	$data = $data.$nFileSize;
+      
+	$nFileFlag = GetDWORD($file_flag);
+	$data = $data.$nFileFlag;
+ 
+	$nCheckFlag = GetDWORD($check_flag);
+	$data = $data.$nCheckFlag;
+	      
+	if($file_flag != 0 && ($check_flag != 0 || $file_flag == 2))
+	{                 									
+		$dwDataOffset = GetDWORD($offset);  
+	}
+        else
+	{
+		$dwDataOffset = GetDWORD(0);  
+	}
+	$data = $data.$dwDataOffset;
+	
+	$dwCanOmitFlag = GetDWORD($omit_flag);  
+	$data = $data.$dwCanOmitFlag;
+
+	if($file_flag != 2)
+	{
+		if($addr2 != 0xFFFFFFFF)
+		{
+			$dwAddrNum = GetDWORD(2); 
+		        $data = $data.$dwAddrNum;
+
+		        my $dwAddr=GetDWORD($addr);
+			$data = $data.$dwAddr;
+
+			my $dwAddr2=GetDWORD($addr2);
+			$data = $data.$dwAddr2;
+
+			my $dwAddr3 = pack("C",0) x 12; 
+			$data = $data.$dwAddr3;
+		}
+		else
+		{
+			$dwAddrNum = GetDWORD(1);  
+		        $data = $data.$dwAddrNum;
+
+		        my $dwAddr=GetDWORD($addr);
+			$data = $data.$dwAddr;
+		
+			my $dwAddr3 = pack("C",0) x 16; 
+			$data = $data.$dwAddr3;
+		}	
+	}
+	else
+	{
+		my $dwTmp = pack("C",0) x 24; 
+		$data = $data.$dwTmp;
+	}
+
+	my $dwReserved= pack("C",0) x (249*4);  #249x4 bytes
+	$data = $data.$dwReserved;
+
+	$offset += $file_size;	
+	#$offset = (($offset+3) & 0xFFFFFFFC);
+	#print "\n--- $offset ----- \n";
+
+	use bytes;
+	print $fh $data;
+}
+
+sub WriteDLFile
+{
+    my $fh = shift;
+    my $index = shift;
+    my $file_path = $param[$index][1]; 
+
+    my $len;
+    $len = do{use bytes; length $file_path};     
+    return 0 if ($len == 0 || !(-e $file_path)) ;
+
+    
+    open(FILE, "<$file_path") or die "Can't open $file_path";
+    binmode FILE; 
+
+    my $file_size = -s $file_path;
+    print " $handle_now [$file_path], $image_size: $file_size byte\n";
+    my $max_size = 1024*1024*50;
+    my $left = $file_size;
+    my $buf;
+    
+    do{
+	if($left > $max_size)
+	{
+	     $len = $max_size;
+	}
+	else
+        {
+	     $len = $left;
+	}
+
+	use bytes;
+	read FILE,$buf,$len;
+	
+	#print $fh pack("C" x $len,$buf);
+        print $fh $buf;
+	
+	$left -=  $len;
+	
+    }while($left>0);
+
+    #my $align = (($file_size+3) & 0xFFFFFFFC) - $file_size ;
+    #if($align>0)
+    #{
+    #	print $fh (pack("C",0) x $align);
+    #}   
+}
+
+sub CalcCrc
+{
+	open(TARGET, "+<$pac_file") or die "Can't open $pac_file";
+	binmode TARGET;	
+
+	my $buf;
+        my $len;
+
+	print "\ncrc first part...\n";
+	seek TARGET,0,SEEK_SET;
+
+	my $wCRC1 = 0;		
+	read(TARGET,$buf,2120);
+	my @part1 = unpack("C" x 2120,$buf);  		
+	$wCRC1 = crc16($wCRC1,@part1);	
+	@part1=();
+	$wCRC1 = GetWORD($wCRC1);
+	seek TARGET,2120,SEEK_SET;
+	print TARGET $wCRC1;
+
+	
+	print "\ncrc second part...\n";
+	seek TARGET,2124,SEEK_SET;
+	my $wCRC2 = 0;
+
+	my $size = $offset-2124;	
+	my $max_size = 1024*1024;
+	my $left = $size;
+	    
+	do{
+		if($left > $max_size)
+		{
+		     $len = $max_size;
+		}
+		else
+		{
+		     $len = $left;
+		}		
+		read TARGET,$buf,$len;
+		
+		my @part = unpack("C" x $len,$buf); 	
+		$wCRC2 = crc16($wCRC2,@part);	
+		@part = ();
+	
+		$left -=  $len;	
+	 }while($left>0);	
+
+	$wCRC2 = GetWORD($wCRC2);
+	seek TARGET,2122,SEEK_SET;
+	print TARGET $wCRC2;
+
+	close TARGET;
+	return True;
+}
+
+sub crc16
+{	
+	my $crc    = shift;  
+        my @data   = @_;		
+	
+	foreach $b (@data) {$crc = (($crc >> 8)^( ${ crc16_table[ ($crc^$b) & 0xff] } )) & 0xFFFF;}	
+     
+        return $crc & 0xFFFF; 	        
+}
+
+sub CheckParam
+{
+	my $j;
+	my $error_msg = "";
+	for ($j = 0; $j < $file_count; $j++)
+	{
+		my $id = $param[$j][0];
+		my $file_path = $param[$j][1];
+        	my $file_flag = $param[$j][2];
+		my $check_flag = $param[$j][3];
+        	my $omit_flag = $param[$j][4];
+		
+		if($file_flag == 0x0101)
+		{
+			if(!(-e $file_path))
+			{	
+				$error_msg .= "$id: [$file_path] does not exist\n";
+			}
+			else
+			{
+				$param[$j][3] = 1;
+				$param[$j][4] = 0;
+			}			
+		}
+		elsif($file_flag == 1)
+		{
+			if(!(-e $file_path))
+			{	
+					$param[$j][3] = 0;
+			}	
+		}
+		elsif($file_flag == 1)
+		{
+			$param[$j][1] = "";	
+		}
+	}
+
+	if(length($error_msg)>0)
+	{
+		print $error_msg;
+		return 0;
+	}	
+	
+	return true;
+	
+}
+####add by ouqijiang 2017-01-18 begin######
+sub Check_file{
+  ##print "\n\n[file_path = $file_path]\n";
+  if(!-f $file_path){
+     die "\nInvalid parameters, file [".${file_path}."] don't exist.\n\n";
+   }
+  if(0 == -s $file_path){
+     die "\nInvalid file [".${file_path}."] : it's a empty file.\n\n";
+  }
+}
+
+sub Images_patch_init{
+ opendir (THISDIR, $dirname) || die "Error in opening dir $dirname\n";
+while(($filename = readdir(THISDIR))){
+   ##print("find the image $filename\n");
+
+	if($filename =~ /boot.img/){
+	$boot_img="${dirname}/${filename}";
+        $file_path=$boot_img;
+        Check_file();
+        $numbers ++;
+        ##print("find the image $boot_img\n");
+	next;
+	}
+
+	if($filename =~ /cache.img/){
+	$cache_img="${dirname}/${filename}";
+        $file_path=$cache_img;
+        Check_file();
+        ##print("find the image $cache_img\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /EXEC_KERNEL_IMAGE0.bin/){
+	$EXEC_KERNEL_IMAGE="${dirname}/${filename}";
+        $file_path=$EXEC_KERNEL_IMAGE;
+        Check_file();
+        ##print("find the image $EXEC_KERNEL_IMAGE\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename eq "fdl1.bin"){
+	$fdl1="${dirname}/${filename}";
+        $file_path=$fdl1;
+        Check_file();
+        ##print("find the image $fdl1\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename eq "fdl2.bin"){
+	$fdl2="${dirname}/${filename}";
+        $file_path=$fdl2;
+        Check_file();
+        ##print("find the image $fdl2\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /fld_wcn.bin/){
+	$fdl_wcn="${dirname}/${filename}";
+        $file_path=$fdl_wcn;
+        Check_file();
+        ##print("find the image $fdl_wcn\n");
+        $numbers ++;
+	next;
+	}
+	if($filename =~ /.bmp/){
+	$logo_bmp="${dirname}/${filename}";
+        $file_path=$logo_bmp;
+        Check_file();
+        ##print("find the image $logo_bmp\n");
+        $numbers ++;
+	next;
+       }
+
+	if($filename =~ /LTE_DSP.bin/){
+	$lte_dsp="${dirname}/${filename}";
+        $file_path=$lte_dsp;
+        Check_file();
+        ##print("find the image $lte_dsp\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /persist.img/){
+	$persist_img="${dirname}/${filename}";
+        $file_path=$persist_img;
+        Check_file();
+        ##print("find the image $persist_img\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /PM_sharkls_arm7.bin/){
+	$pm_sharkls_arm="${dirname}/${filename}";
+        $file_path=$pm_sharkls_arm;
+        Check_file();
+        ##print("find the image $pm_sharkls_arm\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /prodnv.img/){
+	$prodnv_img="${dirname}/${filename}";
+        $file_path=$prodnv_img;
+        Check_file();
+        ##print("find the image $prodnv_img\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /recovery.img/){
+	$recovery_img="${dirname}/${filename}";
+        $file_path=$recovery_img;
+        Check_file();
+        ##print("find the image $recovery_img\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /Base_NV_MIPI.dat/){
+	$CUST_Base_NV_MIPI="${dirname}/${filename}";
+        $file_path=$CUST_Base_NV_MIPI;
+        Check_file();
+        ##print("find the image $CUST_Base_NV_MIPI\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /mod_volte_zc.bin/){
+	$mod_volte_zc="${dirname}/${filename}";
+        $file_path=$mod_volte_zc;
+        Check_file();
+        ##print("find the image $mod_volte_zc\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /SHARKL_DM_DSP.bin/){
+	$SHARKL_DM_DSP="${dirname}/${filename}";
+        $file_path=$SHARKL_DM_DSP;
+        Check_file();
+        ##print("find the image $SHARKL_DM_DSP\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /SharkLSGLobalMarlin/){
+	$SharkLSGLobalMarlin="${dirname}/${filename}";
+        $file_path=$SharkLSGLobalMarlin;
+        Check_file();
+        ##print("find the image $SharkLSGLobalMarlin\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /sysinfo.img/){
+	$sysinfo_img="${dirname}/${filename}";
+        $file_path=$sysinfo_img;
+        Check_file();
+        ##print("find the image $sysinfo_img\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /system.img/){
+	$system_img="${dirname}/${filename}";
+        $file_path=$system_img;
+        Check_file();
+        ##print("find the image $system_img\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /FM_BASE_15C/){
+	$nv_item="${dirname}/${filename}";
+        $file_path=$nv_item;
+        Check_file();
+        ##print("find the image $nv_item\n");
+        $numbers ++;
+	next;
+	}
+       
+        if($filename =~ /nvitem/){
+	$nv_item="${dirname}/${filename}";
+        $file_path=$nv_item;
+        Check_file();
+        ##print("find the image $nv_item\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /u-boot.bin/){
+	$uboot_bin="${dirname}/${filename}";
+        $file_path=$uboot_bin;
+        Check_file();
+        ##print("find the image $uboot_bin\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /u-boot-spl-16k.bin/){
+	$uboot_spl_16k="${dirname}/${filename}";
+        $file_path=$uboot_spl_16k;
+        Check_file();
+        ##print("find the image $uboot_spl_16k\n");
+        $numbers ++;
+	next;
+	}
+
+	if($filename =~ /userdata.img/){
+	$userdata_img="${dirname}/${filename}";
+        $file_path=$userdata_img;
+        Check_file();
+        ##print("find the image $userdata_img\n");
+        $numbers ++;
+	next;
+	}
+  }
+  closedir(THISDIR);
+}
+####add by ouqijiang 2017-01-18 begin######
+
+

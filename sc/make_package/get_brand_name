@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#返回ro.product.brand值
+var=$(grep  "ro.product.brand=" "$1")
+brand_name=${var##"ro.product.brand="}
+echo ${brand_name}
+exit 2

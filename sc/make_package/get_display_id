@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#返回软件版本号，如果版本号中有空格，用下划线 _ 来替代空格
+var=$(grep  "ro.build.display.id=" "$1")
+Display_id_name=${var##"ro.build.display.id="}
+##Display_id_name=${Display_id_name/ /}
+##echo "${Display_id_name}"
+echo "${Display_id_name}"|sed "s/ /_/g"
+##echo "${Display_id_name}" | grep -o "[^ ]\+\( \+[^ ]\+\)*"
+exit 1

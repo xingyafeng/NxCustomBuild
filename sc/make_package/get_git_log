@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#返回git log -1的信息，并获取commit ID
+echo ""
+echo "# begin git log messge properties"
+#cat gitlog |awk '{if(NR==1)print $0;}'
+cat git_message | while read line
+do
+echo "ro.git.commit.id=${line:0:36}"
+break
+done
+echo "# end   git log messge properties"

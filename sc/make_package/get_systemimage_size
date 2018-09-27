@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#返回SharkLSGLobalMarlinAndroid5.1.xml里面的system size设置的值
+xml_config_file=$(ls release_images | grep ".xml")
+systemimage_size=$(grep  'Partition id="system"' "release_images/${xml_config_file}")
+systemimage_size=${systemimage_size/ /}
+##echo "${systemimage_size}"
+echo "${systemimage_size}" | tr -cd "[0-9]"
+exit 2

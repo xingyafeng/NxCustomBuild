@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+#***********************************************************************  
+# [Author]:ouqijiang
+# [date]:2017-01-20  
+#***********************************************************************
+use strict;
+use Net::SMTP;
+use MIME::Base64;
+use Encode;
+
+my $mailhost = 'smtp.163.com';
+my $mailfrom = 'ouqijiang@163.com';
+my $mailto = 'ouqijiang@szhyst.com';
+my $sendName = 'ouqijiang';
+my $sendPassword = '';
+my $subject = "perl测试发送,以后自动处理就可以了";
+my $subject_utf = Encode::encode('utf8', $subject);
+#my $text
+my $text = "hello";
+##my $smtp = Net::SMTP->new($mailhost, Timeout=>120, Debug => 1) or die "Error./n";
+##$smtp->auth('LOGIN', $user, $passwd);
+
+###go
+my $smtp = Net::SMTP->new($mailhost, Timeout=>120, Debug => 1) or die "send fail.";    #邮件服务器地址
+  $smtp->auth($sendName,$sendPassword);
+  $smtp->mail($mailfrom);                 #发件人
+  $smtp->to($mailto);                   #收件人
+  $smtp->data();
+  $smtp->datasend("From:$mailfrom");
+  $smtp->datasend("\n");
+  $smtp->datasend("To:$mailto");
+  $smtp->datasend("\n");
+  ##$smtp->datasend("Subject: 测试主题/n");   #主题
+  $smtp->datasend("Subject:=?UTF-8?B?".encode_base64($subject,'')."?=\n\n");
+  $smtp->datasend("\n");
+  ##$smtp->datasend("Content-Type:text/plain;charset=UTF-8\n");
+  $smtp->datasend("软件版本号/n");    #消息内容
+  $smtp->dataend();
+  $smtp->quit;
