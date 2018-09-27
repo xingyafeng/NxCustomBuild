@@ -6,10 +6,16 @@
 
 use File::Basename;
 use FindBin qw($Bin);
-my $Current_ProcDir = "$Bin/..";
-my $Current_PacDir = "$Bin";
-#print "Current_ProcDir=$Current_ProcDir","\n";
-my $number = scalar @ARGV;	
+use Cwd qw(abs_path getcwd);
+
+my $ANDROID_ROOT_SC = abs_path(getcwd());
+my $Current_ProcDir = "$ANDROID_ROOT_SC";
+my $Current_PacDir = "$ANDROID_ROOT_SC/make_package";
+
+print "ANDROID_ROOT_SC = $ANDROID_ROOT_SC","\n";
+print "Current_ProcDir=$Current_ProcDir","\n";
+
+my $number = scalar @ARGV;
 my $i=0;
 my $start = time();
 my $use_fast_CRC = 1;
@@ -45,6 +51,7 @@ my $file_count = scalar @param;
 print "\nFile count: $file_count\n";
 for($i=0;$i<$file_count;$i++)
 {
+	#print "sc: $i\n";
 	print "$param[$i][0],$param[$i][1],$param[$i][2],$param[$i][3],$param[$i][4]\n";
 }
 #File validity checking
