@@ -36,7 +36,14 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 
+## Zen 支持客制化项目的overlay
 PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
+
+## 音频策略,由吴杰控制.
+PRODUCT_COPY_FILES += \
+	$(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/audio_config/naviapplist.txt:system/etc/naviapplist.txt \
+	$(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/audio_config/notiapplist.txt:system/etc/notiapplist.txt \
+	$(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/audio_config/voiceapplist.txt:system/etc/voiceapplist.txt
 
 ## default launcher
 ifneq ($(strip $(call get-product-packages-custom, YOcLauncher)),)

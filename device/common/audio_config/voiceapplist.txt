@@ -1,0 +1,6 @@
+txznet.txz
+.aios
+.framework
+.voice
+.assistant
+.dev
