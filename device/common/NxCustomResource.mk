@@ -54,9 +54,12 @@ else
 YUNOVO_LAUNCHER_TYPE = droidcar
 endif
 
+## 客制化目标
+ifneq ($(strip $(call get-product-packages-custom, libstagefright_soft_mjpeg)),)
+ALL_YUNOVO_CUSTOM_TARGET += MEDIA_CODECS_XML
+endif
 
 endif ### SPT_VERSION_NO endif
-
 #####################
 
 ifeq ($(strip $(YUNOVO_LAUNCHER_TYPE)),)
