@@ -23,6 +23,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     com.yunovo.device.manager
 
+## 蓝牙服务
+PRODUCT_PACKAGES += \
+	libbluetooth_client \
+	libbluetoothservice \
+	yovbt \
+	libyunovobt_jni \
+	yunovobluetooth
+
+PRODUCT_BOOT_JARS += \
+	yunovobluetooth
+
 ## 外置GPS模块，目前仅提供给VST使用.
 PRODUCT_PACKAGES += \
        libcompass_client \

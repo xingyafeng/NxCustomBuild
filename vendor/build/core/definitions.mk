@@ -38,7 +38,7 @@ define get-app-version
   $(subst $(1),,$(2))
 endef
 
-YUNOVO_BOARD_LIST := k21 mk21 mk26 mk01 cm01
+YUNOVO_BOARD_LIST := k21 mk21 mk26 mk01 cm01 ms16
 define get_yov_board
   $(filter $(YOV_BOARD), $(YUNOVO_BOARD_LIST))
 endef
