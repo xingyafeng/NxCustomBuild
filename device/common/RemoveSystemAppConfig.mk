@@ -21,6 +21,8 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
   ifeq ($(strip $(call get_yov_board)), ms16)
     Y_REMOVE_PRODUCT_PACKAGES += \
       Calendar \
+      Launcher3\
+      Home\
 	  Music \
 	  MusicFX \
 	  Gallery2 \
