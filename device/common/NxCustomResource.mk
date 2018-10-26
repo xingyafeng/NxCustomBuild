@@ -17,6 +17,7 @@ PRODUCT_PACKAGES += \
     libdevicecontrol_client \
     libdevicecontrolservice \
     libyunovo_bluetoothmanager \
+    libyunovo_devicenodemanager \
     devicecontrol \
     com.yunovo.device.manager
 
