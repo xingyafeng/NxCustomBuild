@@ -46,5 +46,8 @@ endif
 ## 广深OTA脚本路径. FOTA_SH用于区非zen平台.原路径:yunovo/packages/apps/AdupsFotaApp
 FOTA_SH := yunovo/NxCustomResource/system/apk/AdupsFotaApp
 
+## PRODUCT_DEFAULT_DEV_CERTIFICATE 默认系统签名
+PRODUCT_DEFAULT_DEV_CERTIFICATE := build/target/product/security/testkey
+
 ## 裁剪系统应用模块
 include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/RemoveSystemAppConfig.mk
