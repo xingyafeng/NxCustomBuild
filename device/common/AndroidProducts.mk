@@ -30,12 +30,6 @@ ifneq ($(YOV_CUSTOM),)
   endif
 endif
 
-## 默认打开odex (user)
-ifeq ($(TARGET_BUILD_VARIANT),user)
-WITH_DEXPREOPT := true
-WITH_DEXPREOPT_PIC := true
-endif
-
 ## 客制化路径
 ifdef is_zen_project
     YUNOVO_CUSTOM_P = $(YOV_CUSTOM)/$(YOV_PROJECT)
@@ -43,11 +37,11 @@ else
     YUNOVO_CUSTOM_P :=
 endif
 
-## 广深OTA脚本路径. FOTA_SH用于区非zen平台.原路径:yunovo/packages/apps/AdupsFotaApp
-FOTA_SH := yunovo/NxCustomResource/system/apk/AdupsFotaApp
+## 跨平台配置
+include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/common.mk
 
-## PRODUCT_DEFAULT_DEV_CERTIFICATE 默认系统签名
-PRODUCT_DEFAULT_DEV_CERTIFICATE := build/target/product/security/testkey
+## 定制文件拷贝: 1. system/ 2. custom/　分区
+include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/custom.mk
 
 ## 裁剪系统应用模块
 include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/RemoveSystemAppConfig.mk
