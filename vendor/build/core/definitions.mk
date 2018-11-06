@@ -38,9 +38,16 @@ define get-app-version
   $(subst $(1),,$(2))
 endef
 
-YUNOVO_BOARD_LIST := k21 mk21 mk26 mk01 cm01 ms16
+YUNOVO_BOARD_LIST := k21 mk21 mk26 mk01 cm01 ms16 k68c
 define get_yov_board
   $(filter $(YOV_BOARD), $(YUNOVO_BOARD_LIST))
+endef
+
+## 查找目录
+define find-file-folder
+$(strip $(wildcard \
+    $(shell test -d $(1)/ && find $(1)/ -maxdepth $(2) -name $(3)) \
+        ))
 endef
 
 define check-yunovo-sing-mk

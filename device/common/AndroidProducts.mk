@@ -32,7 +32,7 @@ endif
 
 ## 客制化路径
 ifdef is_zen_project
-    YUNOVO_CUSTOM_P = $(YOV_CUSTOM)/$(YOV_PROJECT)
+	YUNOVO_CUSTOM_P := $(YOV_CUSTOM)/$(YOV_PROJECT)
 else
     YUNOVO_CUSTOM_P :=
 endif

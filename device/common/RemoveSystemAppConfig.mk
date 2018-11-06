@@ -41,4 +41,20 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
 	  PrintSpooler
   endif
 
+  ifeq ($(strip $(call get_yov_board)), k68c)
+    Y_REMOVE_PRODUCT_PACKAGES += \
+	  Home \
+	  Launcher2 \
+	  Launcher3 \
+	  DeskClock \
+	  Email \
+	  Exchange2 \
+	  QuickSearchBox \
+	  HoloSpiralWallpaper \
+	  LiveWallpapers \
+	  LiveWallpapersPicker \
+	  MagicSmokeWallpapers \
+	  Music \
+	  MusicFX
+  endif
 endif
