@@ -21,5 +21,3 @@
 # "buildspec.mk" should never be checked in to source control.
 ######################################################################
 
-## PRODUCT_DEFAULT_DEV_CERTIFICATE 默认系统签名
-PRODUCT_DEFAULT_DEV_CERTIFICATE := build/target/product/security/testkey
