@@ -10,7 +10,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
 
 ## 蓝牙模块,[诚谦|顾凯]
-PRODUCT_PACKAGES += blink gocsdk
+PRODUCT_PACKAGES += blink gocsdk gocsdks
 
 ## 蓝牙主从功能切换
 PRODUCT_PACKAGES += \
