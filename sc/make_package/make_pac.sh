@@ -119,6 +119,11 @@ function touch_custom_pac_ini()
                 sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
                 ;;
 
+            Oem=1@)
+                ret="oem.img"
+                sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
+                ;;
+
             UserData=1@)
                 ret="userdata.img"
                 sed -i "s#${line}#${line}$IMG/$ret#g" $tmpfs/pac.ini
