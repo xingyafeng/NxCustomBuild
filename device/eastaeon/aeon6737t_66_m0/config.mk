@@ -90,4 +90,7 @@ PRODUCT_PACKAGES += yunovo-policy
 endif
 ### yunovo-policy end .
 
+## userdata分区默认不加密
+MTK_FDE_NO_FORCE = yes
+
 #####################
