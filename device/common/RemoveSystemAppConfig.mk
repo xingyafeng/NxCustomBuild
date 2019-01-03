@@ -43,6 +43,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           ManagedProvisioning \
           EngineerMode \
           Contacts \
+          ContactsProvider \
           PhotoTable \
           FMRadio \
           HTMLViewer \
@@ -52,6 +53,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           DeskClock \
           Email \
           QuickSearchBox \
+          MediaProvider \
           FwkPlugin \
           FWUpgrade \
           PacProcessor \
