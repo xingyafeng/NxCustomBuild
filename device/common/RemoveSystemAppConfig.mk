@@ -19,10 +19,8 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
 #add by Heaven start
     Y_REMOVE_PRODUCT_PACKAGES += \
           WallpaperCropper \
-          DownloadProvider \
           CalendarProvider \
           BasicDreams \
-          DownloadProviderUi \
           CalendarImporter \
           PrintSpooler \
           BSPTelephonyDevTool \
@@ -34,7 +32,6 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           HoloSpiralWallpaper \
           NoiseField \
           PhaseBeam \
-          MTKThermalManager \
           SmartcardService \
           DrmProvider \
           Omacp \
@@ -52,7 +49,6 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           DeskClock \
           Email \
           QuickSearchBox \
-          FwkPlugin \
           FWUpgrade \
           PacProcessor \
           NlpService \
