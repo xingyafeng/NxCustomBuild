@@ -39,7 +39,6 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           KeyChain \
           ManagedProvisioning \
           EngineerMode \
-          Contacts \
           PhotoTable \
           FMRadio \
           HTMLViewer \
