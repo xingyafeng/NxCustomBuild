@@ -4,5 +4,3 @@
 
 $(info including $(call my-dir)/$(TARGET_DEVICE).mk ...)
 
-# 背光控制代理库
-PRODUCT_PACKAGES += lights.$(TARGET_BOARD_PLATFORM)

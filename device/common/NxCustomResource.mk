@@ -51,6 +51,9 @@ PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 ## 提供一些给APP层面使用的接口和一些调试功能
 PRODUCT_PACKAGES += YOcCoreServer
 
+# 系统级的后台服务APP
+PRODUCT_PACKAGES += nxPAL
+
 ## Zen 支持客制化项目的overlay
 PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
 

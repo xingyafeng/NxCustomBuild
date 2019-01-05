@@ -13,6 +13,3 @@ FOTA_SH := yunovo/NxCustomResource/system/apk/AdupsFotaApp
 
 ## PRODUCT_DEFAULT_DEV_CERTIFICATE 默认系统签名
 PRODUCT_DEFAULT_DEV_CERTIFICATE := build/target/product/security/testkey
-
-# 系统级的后台服务APP
-PRODUCT_PACKAGES += nxPAL
