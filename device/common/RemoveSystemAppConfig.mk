@@ -38,7 +38,6 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           OneTimeInitializer \
           KeyChain \
           ManagedProvisioning \
-          EngineerMode \
           PhotoTable \
           FMRadio \
           HTMLViewer \
