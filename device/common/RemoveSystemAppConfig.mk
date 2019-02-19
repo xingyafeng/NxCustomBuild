@@ -99,4 +99,13 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           Music \
           MusicFX
   endif
+
+  ifeq ($(strip $(call get_yov_board)), mk26)
+    Y_REMOVE_PRODUCT_PACKAGES += \
+	  NlpService \
+	  VoiceExtension \
+	  VoiceCommand \
+	  MtkCalendar \
+	  DeskClock
+  endif
 endif
