@@ -2,7 +2,8 @@
 
 ##################### Jenkins构建裁剪模块
 ifneq ($(strip $(SPT_VERSION_NO)),)
-  ifeq ($(strip $(call get_yov_board)), cm01)
+
+  ifneq ($(filter $(call get_yov_board), cm01 cm02), )
     Y_REMOVE_PRODUCT_PACKAGES += \
           Calendar \
           Music \
@@ -16,6 +17,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           mtkbt \
           SoundRecorder \
           Calendar
+
 #add by Heaven start
     Y_REMOVE_PRODUCT_PACKAGES += \
           WallpaperCropper \
