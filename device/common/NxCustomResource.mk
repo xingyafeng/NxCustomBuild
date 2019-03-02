@@ -54,6 +54,13 @@ PRODUCT_PACKAGES += YOcCoreServer
 # 系统级的后台服务APP
 PRODUCT_PACKAGES += nxPAL
 
+# SSH
+PRODUCT_PACKAGES += ssh
+# dropbear
+PRODUCT_PACKAGES += dropbear
+# dropbearkey
+PRODUCT_PACKAGES += dropbearkey
+
 ## Zen 支持客制化项目的overlay
 PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
 
