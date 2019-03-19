@@ -80,7 +80,8 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           LiveWallpapersPicker\
           PhaseBeam\
           PicoTts\
-          PrintSpooler
+          PrintSpooler \
+          YOcLogDog
   endif
 
   ifeq ($(strip $(call get_yov_board)), k68c)
