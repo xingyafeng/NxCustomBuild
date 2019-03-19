@@ -81,7 +81,12 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           PhaseBeam\
           PicoTts\
           PrintSpooler \
-          YOcLogDog
+          YOcLogDog \
+          Browser \
+          BrowserXposed \
+          DeskClock \
+          AndroidAudioRecorder \
+          Galaxy4
   endif
 
   ifeq ($(strip $(call get_yov_board)), k68c)
