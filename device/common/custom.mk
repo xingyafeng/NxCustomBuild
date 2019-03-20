@@ -14,11 +14,11 @@ PRODUCT_COPY_FILES  += $(foreach fs, $(YUNOVO_CUSTOM_FILES), $(YUNOVO_COMMON_P)/
 YUNOVO_ZEN_P = $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)
 YUNOVO_ZEN_OVERRIDE_P = $(YUNOVO_ZEN_P)/override
 
-YUNOVO_SYSTEM_FILES := $(shell if [ -d $(YUNOVO_ZEN_OVERRIDE_P)/oem ]; then cd $(YUNOVO_ZEN_OVERRIDE_P)/oem && find | sed 's%^.\/%%'; fi)
-PRODUCT_COPY_FILES  += $(foreach fs, $(YUNOVO_SYSTEM_FILES), $(YUNOVO_ZEN_OVERRIDE_P)/oem/$(fs):oem/$(fs))
+YUNOVO_SYSTEM_FILES := $(shell if [ -d $(YUNOVO_ZEN_P)/oem ]; then cd $(YUNOVO_ZEN_P)/oem && find | sed 's%^.\/%%'; fi)
+PRODUCT_COPY_FILES  += $(foreach fs, $(YUNOVO_SYSTEM_FILES), $(YUNOVO_ZEN_P)/oem/$(fs):oem/$(fs))
 
-YUNOVO_SYSTEM_FILES := $(shell if [ -d $(YUNOVO_ZEN_OVERRIDE_P)/custom ]; then cd $(YUNOVO_ZEN_OVERRIDE_P)/custom && find | sed 's%^.\/%%'; fi)
-PRODUCT_COPY_FILES  += $(foreach fs, $(YUNOVO_SYSTEM_FILES), $(YUNOVO_ZEN_OVERRIDE_P)/custom/$(fs):custom/$(fs))
+YUNOVO_SYSTEM_FILES := $(shell if [ -d $(YUNOVO_ZEN_P)/custom ]; then cd $(YUNOVO_ZEN_P)/custom && find | sed 's%^.\/%%'; fi)
+PRODUCT_COPY_FILES  += $(foreach fs, $(YUNOVO_SYSTEM_FILES), $(YUNOVO_ZEN_P)/custom/$(fs):custom/$(fs))
 
 YUNOVO_SYSTEM_FILES := $(shell if [ -d $(YUNOVO_ZEN_OVERRIDE_P)/system ]; then cd $(YUNOVO_ZEN_OVERRIDE_P)/system && find | sed 's%^.\/%%'; fi)
 PRODUCT_COPY_FILES  += $(foreach fs, $(YUNOVO_SYSTEM_FILES), $(YUNOVO_ZEN_OVERRIDE_P)/system/$(fs):system/$(fs))
