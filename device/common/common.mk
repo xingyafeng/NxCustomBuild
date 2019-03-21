@@ -12,4 +12,4 @@ endif
 FOTA_SH := yunovo/NxCustomResource/system/apk/AdupsFotaApp
 
 ## PRODUCT_DEFAULT_DEV_CERTIFICATE 默认系统签名
-PRODUCT_DEFAULT_DEV_CERTIFICATE := build/target/product/security/testkey
+$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_DEFAULT_DEV_CERTIFICATE) := build/target/product/security/testkey
