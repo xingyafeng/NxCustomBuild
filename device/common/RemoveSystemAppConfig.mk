@@ -86,39 +86,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           BrowserXposed \
           DeskClock \
           AndroidAudioRecorder \
-          Galaxy4 \
-          PerfMon_v1.21 \
-          MMITest \
-          LatinIME \
-          HoloSpiralWallpaper \
-          webview \
-          NoteBook \
-          KeyChain \
-          Omacp \
-          UserDictionaryProvider \
-          ProxyHandler \
-          PacProcessor \
-          SprdQuickSearchBox \
-          VpnDialogs \
-          HTMLViewer \
-          FMRadio \
-          PhotoTable \
-          ManagedProvisioning \
-          OneTimeInitializer \
-          BasicDreams \
-          CalendarProvider \
-          WallpaperCropper \
-          ContactsBlackListAddon \
-          DialerBlackListAddon \
-          Calculator \
-          SmilPlayer \
-          CallLogBackup \
-          CellBroadcastReceiver \
-          messaging \
-          WAPPushManager \
-          CarrierConfig \
-          Stk \
-          Camera2
+          Galaxy4
   endif
 
   ifeq ($(strip $(call get_yov_board)), k68c)
