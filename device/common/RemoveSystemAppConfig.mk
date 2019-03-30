@@ -5,6 +5,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
 
   ifneq ($(filter $(call get_yov_board), cm01 cm02), )
     Y_REMOVE_PRODUCT_PACKAGES += \
+          Calendar \
           Music \
           MusicFX \
           batterywarning \
@@ -85,41 +86,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           BrowserXposed \
           DeskClock \
           AndroidAudioRecorder \
-          Galaxy4 \
-          PerfMon_v1.21 \
-          MMITest \
-          LatinIME \
-          HoloSpiralWallpaper \
-          webview \
-          NoteBook \
-          KeyChain \
-          Omacp \
-          UserDictionaryProvider \
-          ProxyHandler \
-          PacProcessor \
-          SprdQuickSearchBox \
-          VpnDialogs \
-          HTMLViewer \
-          FMRadio \
-          PhotoTable \
-          ManagedProvisioning \
-          OneTimeInitializer \
-          BasicDreams \
-          CalendarProvider \
-          WallpaperCropper \
-          ContactsBlackListAddon \
-          DialerBlackListAddon \
-          Calculator \
-          SmilPlayer \
-          modemassert \
-          CallLogBackup \
-          CellBroadcastReceiver \
-          messaging \
-          WAPPushManager \
-          CarrierConfig \
-          Stk \
-          StatementService \
-          Camera2
+          Galaxy4
   endif
 
   ifeq ($(strip $(call get_yov_board)), k68c)
