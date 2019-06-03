@@ -272,6 +272,10 @@ function makepac()
     fi
 
     if [[ ${ret} -eq 0  ]] ; then
+        if [[ -f ${tmpfs}/pac.ini ]]; then
+            rm -rf ${tmpfs}/pac.ini
+        fi
+
         echo -n "${color_success}#### make pac completed successfully "
     else
         echo -n "${color_failed}#### make pac failed to package some targets "
