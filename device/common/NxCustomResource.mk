@@ -80,6 +80,13 @@ ifeq ($(strip $(YUNOVO_LAUNCHER_TYPE)),)
 YUNOVO_LAUNCHER_TYPE := Android
 endif
 
+## wilber start #{
+ifeq ($(strip $(YUNOVO_MEDIA_SHAREBUFFER)),yes)
+ADDITIONAL_BUILD_PROPERTIES += yov.sys.sharebuffer_enable=true
+PRODUCT_PACKAGES += libsharebufferservice
+endif
+## wilber end #}
+
 ifeq ($(filter dumpvar-%,$(MAKECMDGOALS)),)
 $(warning "===========================================================")
 $(warning "    主界面 : ")
