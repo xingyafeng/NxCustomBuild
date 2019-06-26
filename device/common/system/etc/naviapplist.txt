@@ -2,4 +2,6 @@ amapauto
 cld.navi
 mapbar
 baidu
+com.autonavi.amapautolite
+com.autonavi.amapauto
 
