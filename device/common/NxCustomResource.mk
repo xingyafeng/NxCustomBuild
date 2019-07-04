@@ -51,9 +51,6 @@ PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 ## 提供一些给APP层面使用的接口和一些调试功能
 PRODUCT_PACKAGES += YOcCoreServer
 
-# 系统级的后台服务APP
-PRODUCT_PACKAGES += nxPAL
-
 # SSH
 PRODUCT_PACKAGES += ssh
 # dropbear
