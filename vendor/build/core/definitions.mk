@@ -4,6 +4,8 @@
 # YUNOVO_BUILD_VERNO 系统补丁版本号
 # YUNOVO_SYSTEM_VER 系统版本号
 
+ifdef is_zen_project
+
 #相对比较靠前生效
 $(info including $(call my-dir)/definitions.mk ...)
 
@@ -24,18 +26,6 @@ define find-dev-common-mk
 $(strip $(wildcard \
   $(shell test -d yunovo/NxCustomBuild/device && find yunovo/NxCustomBuild/device -maxdepth 4 -path '*/$(1).mk') \
 ))
-endef
-
-define get-product-packages
-  $(filter $(1)%, $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES))
-endef
-
-define get-product-packages-custom
-  $(filter $(1)%, $(PRODUCT_PACKAGES))
-endef
-
-define get-app-version
-  $(subst $(1),,$(2))
 endef
 
 YUNOVO_BOARD_LIST := k21 mk21 mk26 mk01 cm01 cm02 ms16 k68c
@@ -171,3 +161,5 @@ $(call moved-yunovo-var,$(_yunovo_cached_var_list),,YUNOVO_CACHED_)
 $(call dump-yunovo-var,YUNOVO_BUILD_VERNO YUNOVO_SYSTEM_VER)
 
 #$(warning  PRODUCTS.$(PRODUCTS).PRODUCT_PACKAGES = $(PRODUCTS.$(PRODUCTS).PRODUCT_PACKAGES) )
+
+endif

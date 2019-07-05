@@ -21,3 +21,54 @@
 # "buildspec.mk" should never be checked in to source control.
 ######################################################################
 
+# 云智根路径
+YUNOVO_ROOT := yunovo
+
+# Zen计划仓库名
+YUNOVO_CONFIG := NxCustomConfig
+YUNOVO_BUILD  := NxCustomBuild
+YUNOVO_RES    := NxCustomResource
+
+# 公共模块
+YUNOVO_COMMON := device/common
+
+ifneq ($(TARGET_PRODUCT),)
+# 客制化产品
+YUNOVO_BOARD = $(shell find device/ -maxdepth 3 -name $(TARGET_PRODUCT) | awk -F/ '{print $$2}')
+
+# 客制化产品路径
+YUNOVO_DEVICE_P := $(shell dirname `find device/ -name AndroidProducts.mk | grep $(TARGET_PRODUCT)`)
+# YUNOVO_DEVICE_P := device/$(YUNOVO_BOARD)/$(TARGET_PRODUCT)
+else
+$(error "Do not lunch ...")
+endif
+
+# 是否为zen平台构建.
+ifneq ($(YOV_CUSTOM),)
+  ifneq ($(YOV_PROJECT),)
+    is_zen_project := true
+  else
+    is_zen_project :=
+  endif
+endif
+
+# 客制化路径
+ifdef is_zen_project
+    YUNOVO_CUSTOM_P := $(YOV_CUSTOM)/$(YOV_PROJECT)
+else
+    YUNOVO_CUSTOM_P :=
+endif
+
+ifdef is_zen_project
+
+# override custom
+include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/OverrideCustom.mk
+
+# 支持Zen平台配置
+-include $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/framework.mk
+-include $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/app.mk
+
+endif
+
+## Common build system definitions.
+include $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/definitions.mk
