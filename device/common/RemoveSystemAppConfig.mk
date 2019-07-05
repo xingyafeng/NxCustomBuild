@@ -98,6 +98,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
           ProxyHandler \
           PacProcessor \
           SprdQuickSearchBox \
+	  QuickSearchBox \
           VpnDialogs \
           HTMLViewer \
           FMRadio \
