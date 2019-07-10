@@ -1,6 +1,5 @@
 ########add for hyst custom##################################
 
-
 # 兼容不同版型配置
 ifneq ($(strip $(YOV_BOARD)),)
 $(call inherit-product-if-exists, $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_DEVICE_P)/$(YOV_BOARD).mk)
@@ -66,7 +65,7 @@ PAC_SOURCE_FILE_DIR_TRIM=$(strip $(PAC_SOURCE_FILE_DIR))
 
 COPY_FILES := $(shell ls $(BOARDDIR)/$(PAC_SOURCE_FILE_DIR_TRIM))
 
-ifneq ($(strip $(YUNOVO_PRJ_NAME)),)
+ifdef is_zen_project
 PAC_LOGO_BMP := $(shell ls $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/logo | grep "logo.bmp")
 else
 PAC_LOGO_BMP := $(shell ls $(BOARDDIR)/$(PAC_SOURCE_FILE_DIR_TRIM) | grep ".bmp")
@@ -80,7 +79,7 @@ PAC_NVITEM_VERSION := $(shell ls $(BOARDDIR)/$(PAC_SOURCE_FILE_DIR_TRIM) | grep 
 PAC_CONFIG_XML := $(shell ls $(BOARDDIR)/$(PAC_SOURCE_FILE_DIR_TRIM) | grep ".xml")
 
 ###copy file to out
-ifneq ($(strip $(YUNOVO_PRJ_NAME)),)
+ifdef is_zen_project
 PRODUCT_COPY_FILES += \
   $(BOARDDIR)/$(PAC_SOURCE_FILE_DIR_TRIM)/$(PAC_NVITEM_VERSION):$(PAC_NVITEM_VERSION) \
   $(BOARDDIR)/$(PAC_SOURCE_FILE_DIR_TRIM)/$(PAC_CONFIG_XML):SC9832 \

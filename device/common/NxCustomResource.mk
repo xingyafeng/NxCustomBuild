@@ -1,7 +1,7 @@
 # yunovo apps config
 
-##################### Jenkins构建默认编译模块
-ifneq ($(strip $(SPT_VERSION_NO)),)
+# #################### Jenkins构建默认编译模块
+ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 
 PRODUCT_PACKAGES += \
     YGPS \
@@ -9,10 +9,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
 
-## 蓝牙模块,[诚谦|顾凯]
+# 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk gocsdks
 
-## 蓝牙主从功能切换
+# 蓝牙主从功能切换
 PRODUCT_PACKAGES += \
     libdevicecontrol_client \
     libdevicecontrolservice \
@@ -24,7 +24,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     com.yunovo.device.manager
 
-## 蓝牙服务
+# 蓝牙服务
 PRODUCT_PACKAGES += \
 	libbluetooth_client \
 	libbluetoothservice \
@@ -35,20 +35,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
 	yunovobluetooth
 
-## 外置GPS模块，目前仅提供给VST使用.
+# 外置GPS模块，目前仅提供给VST使用.
 PRODUCT_PACKAGES += \
        libcompass_client \
        libcompassservice \
        compass \
        libyunovogpsmanager
 
-## 千行GPS SDK
+# 千行GPS SDK
 PRODUCT_PACKAGES += \
        librtcm
 
 PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 
-## 提供一些给APP层面使用的接口和一些调试功能
+# 提供一些给APP层面使用的接口和一些调试功能
 PRODUCT_PACKAGES += YOcCoreServer
 
 # SSH
@@ -58,10 +58,10 @@ PRODUCT_PACKAGES += dropbear
 # dropbearkey
 PRODUCT_PACKAGES += dropbearkey
 
-## Zen 支持客制化项目的overlay
+# Zen 支持客制化项目的overlay
 PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
 
-## default launcher
+# default launcher
 ifneq ($(strip $(call get-product-packages-custom, YOcLauncher)),)
 YUNOVO_LAUNCHER_TYPE = yoc
 else ifneq ($(strip $(call get-product-packages-custom, CarEngine)),)
@@ -70,19 +70,19 @@ else
 YUNOVO_LAUNCHER_TYPE = droidcar
 endif
 
-endif ### SPT_VERSION_NO endif
-#####################
+endif # SPT_VERSION_NO endif
+# ####################
 
 ifeq ($(strip $(YUNOVO_LAUNCHER_TYPE)),)
 YUNOVO_LAUNCHER_TYPE := Android
 endif
 
-## wilber start #{
+# wilber start #{
 ifeq ($(strip $(YUNOVO_MEDIA_SHAREBUFFER)),yes)
 ADDITIONAL_BUILD_PROPERTIES += yov.sys.sharebuffer_enable=true
 PRODUCT_PACKAGES += libsharebufferservice
 endif
-## wilber end #}
+# wilber end #}
 
 ifeq ($(filter dumpvar-%,$(MAKECMDGOALS)),)
 $(warning "===========================================================")

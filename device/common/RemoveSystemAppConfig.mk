@@ -1,7 +1,7 @@
 # system remove app config
 
-##################### Jenkins构建裁剪模块
-ifneq ($(strip $(SPT_VERSION_NO)),)
+# ----  系统裁剪模块
+ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 
   ifneq ($(filter $(call get_yov_board), cm01 cm02), )
     Y_REMOVE_PRODUCT_PACKAGES += \
