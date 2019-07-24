@@ -64,7 +64,7 @@ endif
 ifdef is_zen_project
 
 # override custom
-include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/OverrideCustom.mk
+#include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/OverrideCustom.mk
 
 # 支持Zen平台配置
 -include $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/framework.mk
