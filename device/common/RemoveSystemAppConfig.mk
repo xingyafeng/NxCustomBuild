@@ -60,7 +60,7 @@ ifneq ($(strip $(SPT_VERSION_NO)),)
 #add by Heaven end
   endif
 
-  ifeq ($(strip $(call get_yov_board)), ms16 ms18)
+  ifeq ($(strip $(call get_yov_board)), ms16)
     Y_REMOVE_PRODUCT_PACKAGES += \
           Calendar \
           Launcher3\
