@@ -14,4 +14,4 @@ include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/custom.mk
 include  $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_COMMON)/RemoveSystemAppConfig.mk
 
 ## 增加平台差异化模块
--include $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_DEVICE_P)/$(TARGET_PRODUCT).mk
+-include $(YUNOVO_ROOT)/$(YUNOVO_BUILD)/$(YUNOVO_DEVICE_P)/$(TARGET_DEVICE).mk
