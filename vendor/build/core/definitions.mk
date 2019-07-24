@@ -28,12 +28,12 @@ $(strip $(wildcard \
 ))
 endef
 
-YUNOVO_BOARD_LIST := k21 mk21 mk26 mk01 cm01 cm02 ms16 k68c
+# 拿到版型
 define get_yov_board
-  $(filter $(YOV_BOARD), $(YUNOVO_BOARD_LIST))
+$(filter $(YOV_BOARD), $(YOV_BOARD))
 endef
 
-## 查找目录
+# 查找目录
 define find-file-folder
 $(strip $(wildcard \
     $(shell test -d $(1)/ && find $(1)/ -maxdepth $(2) -name $(3)) \

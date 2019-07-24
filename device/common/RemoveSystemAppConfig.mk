@@ -3,7 +3,7 @@
 # ----  系统裁剪模块
 ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 
-  ifneq ($(filter $(call get_yov_board), cm01 cm02), )
+  ifneq ($(strip $(filter $(call get_yov_board), cm01 cm02)), )
     Y_REMOVE_PRODUCT_PACKAGES += \
           Calendar \
           Music \
@@ -60,7 +60,7 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 #add by Heaven end
   endif
 
-  ifeq ($(strip $(call get_yov_board)), ms16)
+  ifneq ($(strip $(filter $(call get_yov_board), ms16 ms18)), )
     Y_REMOVE_PRODUCT_PACKAGES += \
           Calendar \
           Launcher3\
