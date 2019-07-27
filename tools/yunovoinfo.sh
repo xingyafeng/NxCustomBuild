@@ -13,7 +13,7 @@ if [[ -n "$YUNOVO_RELEASE_TAG" ]];then
  echo "ro.release.tag=$YUNOVO_RELEASE_TAG"
 fi
 
-if [[ -n "$YUNOVO_RELEASE_TYPE" ]];then
+if [[ -n "$YUNOVO_RELEASE_TYPE" && "$YUNOVO_RELEASE_TYPE" == "Release" ]];then
  echo "ro.release.type=$YUNOVO_RELEASE_TYPE"
 fi
 # YUNOVO_E:add by yafeng 2017.6.10
