@@ -67,7 +67,7 @@ PRODUCT_PROPERTY_OVERRIDES \
 PRODUCT_PACKAGES
 
 #临时缓存一些原来的值，让使用过程中免受破坏
-$(call moved-yunovo-var,$(_yunovo_cached_var_list),YUNOVO_CACHED_)
+#$(call moved-yunovo-var,$(_yunovo_cached_var_list),YUNOVO_CACHED_)
 #$(call dump-yunovo-var,$(_yunovo_cached_var_list))
 #$(call dump-yunovo-var,$(_yunovo_cached_var_list),YUNOVO_CACHED_)
 
@@ -191,7 +191,7 @@ ADDITIONAL_BUILD_PROPERTIES := \
     $(PRODUCT_PROPERTY_OVERRIDES)
 
 #还原值供以后使用
-$(call moved-yunovo-var,$(_yunovo_cached_var_list),,YUNOVO_CACHED_)
+#$(call moved-yunovo-var,$(_yunovo_cached_var_list),,YUNOVO_CACHED_)
 #$(call dump-yunovo-var,ADDITIONAL_BUILD_PROPERTIES $(_yunovo_cached_var_list))
 #$(call dump-yunovo-var,$(_yunovo_cached_var_list),YUNOVO_CACHED_)
 $(call dump-yunovo-var,YUNOVO_BUILD_VERNO YUNOVO_SYSTEM_VER)
