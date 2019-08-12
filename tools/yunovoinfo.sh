@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo
+echo "#"
+echo "# from yunovoinfo.sh"
+echo "#"
+
 # YUNOVO_S:add by yafeng 2017.6.10
 if [[ -n "$YUNOVO_PRJ_NAME" ]];then
  echo "ro.yunovo.prj.name=$YUNOVO_PRJ_NAME"
@@ -17,3 +22,7 @@ if [[ -n "$YUNOVO_RELEASE_TYPE" ]];then
  echo "ro.release.type=$YUNOVO_RELEASE_TYPE"
 fi
 # YUNOVO_E:add by yafeng 2017.6.10
+
+echo
+echo "# end yunovoinfo.sh"
+echo
