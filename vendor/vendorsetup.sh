@@ -1,6 +1,9 @@
 #!/bin/bash
 #最先生效的文件，初始化一些环境变量
 
+# Force JAVA_HOME to point to java 1.7/1.8 if it isn't or is already set.
+export ANDROID_SET_JAVA_HOME=true
+
 YOVO_IGNORE_LIBS="mt6735_64 mt6735m_64 mt6735m_gmo mt6753_64 mt6737m mt6737m_64_gmo mt6737m_gmo mt6737t mt6737t_64 mt6737t_gmo"
 
 # shell 所在根路径，唯一且固定
