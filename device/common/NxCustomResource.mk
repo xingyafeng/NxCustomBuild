@@ -9,6 +9,13 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
 
+ifneq ($(strip $(filter $(call get_yov_board), ck02)), )
+
+# 蓝牙模块,[诚谦|顾凯]
+PRODUCT_PACKAGES += blink gocsdk gocsdks
+
+else
+
 # 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk gocsdks
 
@@ -45,6 +52,8 @@ PRODUCT_PACKAGES += \
 # 千行GPS SDK
 PRODUCT_PACKAGES += \
        librtcm
+
+endif
 
 PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 
