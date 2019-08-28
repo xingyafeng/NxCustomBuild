@@ -146,4 +146,106 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 	  MtkCalendar \
 	  DeskClock
   endif
+
+## wilber start #{
+  ifneq ($(strip $(filter $(call get_yov_board), ck02)), )
+    ifeq ($(TARGET_BUILD_VARIANT),user)
+      # delete origin system module
+      Y_REMOVE_PRODUCT_PACKAGES += \
+      	MusicBspPlus \
+  		BackupRestoreConfirmation \
+  		BlockedNumberProvider \
+  		BookmarkProvider \
+  		CtsShimPrivPrebuilt \
+  		CtsShimPrebuilt \
+  		PrintRecommendationService \
+  		PrintSpooler \
+  		WallpaperCropper \
+  		WallpaperPicker \
+  		WallpaperBackup \
+  		LiveWallpapersPicker \
+  		BuiltInPrintService \
+  		EasterEgg \
+  		WAPPushManager
+
+      # package module
+      Y_REMOVE_PRODUCT_PACKAGES += \
+  		BasicDreams \
+  		Browser2 \
+  		Camera \
+  		Calendar \
+  		CalendarProvider \
+  		CallLogBackup \
+  		CellBroadcastReceiver \
+  		CarrierConfig \
+  		Contacts \
+  		ContactsProvider \
+  		Dialer \
+  		DeskClock \
+  		DownloadProviderUi \
+  		DownloadProvider \
+  		Email \
+  		EmergencyInfo \
+  		ExactCalculator \
+  		Gallery2 \
+  		Launcher2 \
+  		Launcher3Go \
+  		messaging \
+  		Mms \
+  		Music \
+  		MusicFX \
+  		NfcNci \
+  		OpenWnn \
+  		Protips \
+  		QuickSearchBox \
+  		SoundRecorder \
+  		UserDictionaryProvider
+
+      # MTK module
+      # MtkLauncher3
+      Y_REMOVE_PRODUCT_PACKAGES += \
+  		BatteryWarning \
+  		BtTool \
+  		Camera2 \
+  		CalendarImporter \
+  		CallRecorderService \
+  		Exchange2 \
+  		FMRadio \
+  		LovelyFontContainerService \
+  		LovelyFonts \
+  		MDMConfig \
+  		MDMLSample \
+  		MtkBrowser \
+  		MtkCalendar \
+  		MtkCalendarProvider \
+  		MtkCarrierConfig \
+  		MtkCellBroadcastReceiver \
+  		MtkContacts \
+  		MtkDeskClock \
+  		MtkDialer \
+  		MtkDownloadProvider \
+  		MtkDownloadProviderUi \
+  		MtkEmail \
+  		MtkEmergencyInfo \
+  		MtkGallery2 \
+  		MtkMms \
+  		MtkNlp \
+  		MtkWallpaperPicker \
+  		MusicBspPlus
+
+      # mtk test module
+      Y_REMOVE_PRODUCT_PACKAGES += \
+  		AtciService \
+  		CDS_INFO \
+  		MtkTelecomUnitTests \
+  		YGPS
+
+      # third part module
+      Y_REMOVE_PRODUCT_PACKAGES += \
+  		Baidu_Location
+
+    endif
+  endif
+## wilber end #}
+
 endif
