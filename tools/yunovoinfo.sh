@@ -21,6 +21,18 @@ fi
 if [[ -n "$YUNOVO_RELEASE_TYPE" ]];then
  echo "ro.release.type=$YUNOVO_RELEASE_TYPE"
 fi
+
+if [[ -n "${YUNOVO_BUILD_ID}" ]];then
+ echo "ro.jenkins.build.id=${YUNOVO_BUILD_ID}"
+fi
+
+if [[ -n "${YUNOVO_SIGNATURE_TYPE}" ]]; then
+ echo
+ echo "# false : 公版签名"
+ echo "# true  : 云智签名"
+ echo "ro.jenkins.signature.type=${YUNOVO_SIGNATURE_TYPE}"
+fi
+
 # YUNOVO_E:add by yafeng 2017.6.10
 
 echo
