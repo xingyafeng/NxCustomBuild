@@ -19,6 +19,23 @@ else
 # 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk gocsdks
 
+
+# 外置GPS模块，目前仅提供给VST使用.
+PRODUCT_PACKAGES += \
+       libcompass_client \
+       libcompassservice \
+       compass \
+       libyunovogpsmanager
+
+# 千行GPS SDK
+PRODUCT_PACKAGES += \
+       librtcm
+
+endif
+
+
+ifeq (1,$(filter 1,$(shell echo "$$(( $(PLATFORM_SDK_VERSION) <= 23 ))" )))
+
 # 蓝牙主从功能切换
 PRODUCT_PACKAGES += \
     libdevicecontrol_client \
@@ -42,18 +59,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
 	yunovobluetooth
 
-# 外置GPS模块，目前仅提供给VST使用.
-PRODUCT_PACKAGES += \
-       libcompass_client \
-       libcompassservice \
-       compass \
-       libyunovogpsmanager
-
-# 千行GPS SDK
-PRODUCT_PACKAGES += \
-       librtcm
-
 endif
+
+
 
 PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 
