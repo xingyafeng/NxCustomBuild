@@ -169,6 +169,7 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
   		WAPPushManager
 
       # package module
+      # ContactsProvider
       Y_REMOVE_PRODUCT_PACKAGES += \
   		BasicDreams \
   		Browser2 \
@@ -179,7 +180,6 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
   		CellBroadcastReceiver \
   		CarrierConfig \
   		Contacts \
-  		ContactsProvider \
   		Dialer \
   		DeskClock \
   		DownloadProviderUi \
@@ -203,6 +203,9 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 
       # MTK module
       # MtkLauncher3
+      # MtkBrowser
+      # MtkDownloadProvider
+      # MtkDownloadProviderUi
       Y_REMOVE_PRODUCT_PACKAGES += \
   		BatteryWarning \
   		BtTool \
@@ -215,7 +218,6 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
   		LovelyFonts \
   		MDMConfig \
   		MDMLSample \
-  		MtkBrowser \
   		MtkCalendar \
   		MtkCalendarProvider \
   		MtkCarrierConfig \
@@ -223,8 +225,6 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
   		MtkContacts \
   		MtkDeskClock \
   		MtkDialer \
-  		MtkDownloadProvider \
-  		MtkDownloadProviderUi \
   		MtkEmail \
   		MtkEmergencyInfo \
   		MtkGallery2 \
