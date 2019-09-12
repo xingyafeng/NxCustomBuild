@@ -6,6 +6,9 @@ $(info including $(call my-dir)/common.mk ...)
 ifeq ($(TARGET_BUILD_VARIANT),user)
 WITH_DEXPREOPT := true
 WITH_DEXPREOPT_PIC := true
+else
+WITH_DEXPREOPT := false
+WITH_DEXPREOPT_PIC := false
 endif
 
 ## 广深OTA脚本路径. FOTA_SH用于区非zen平台.原路径:yunovo/packages/apps/AdupsFotaApp
