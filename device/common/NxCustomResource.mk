@@ -34,8 +34,6 @@ PRODUCT_PACKAGES += \
 endif
 
 
-ifeq (1,$(filter 1,$(shell echo "$$(( $(PLATFORM_SDK_VERSION) <= 23 ))" )))
-
 # 蓝牙主从功能切换
 PRODUCT_PACKAGES += \
     libdevicecontrol_client \
@@ -58,6 +56,12 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
 	yunovobluetooth
+
+# yunovo蓝牙协议栈
+ifeq (1,$(filter 1,$(shell echo "$$(( $(PLATFORM_SDK_VERSION) > 23 ))" )))
+PRODUCT_PROPERTY_OVERRIDES += persist.sys.start.yun_vendor_bt=1
+PRODUCT_PACKAGES += \
+	yunbluetooth.default
 
 endif
 
