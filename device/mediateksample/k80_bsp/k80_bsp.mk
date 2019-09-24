@@ -21,7 +21,7 @@ ADDITIONAL_BUILD_PROPERTIES += ro.yov.sys.custom=true
 PRODUCT_LOCALES := zh_CN en_US zh_TW
 
 # 性能优化：任务快照,车机需要最近任务快照
-#ADDITIONAL_BUILD_PROPERTIES += persist.enable_task_snapshots=false
+ADDITIONAL_BUILD_PROPERTIES += persist.enable_task_snapshots=false
 
 # 取消导航栏
 ifeq ($(TARGET_BUILD_VARIANT),user)
