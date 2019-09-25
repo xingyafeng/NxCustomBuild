@@ -150,6 +150,7 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 ## wilber start #{
   ifneq ($(strip $(filter $(call get_yov_board), ck02)), )
     ifeq ($(TARGET_BUILD_VARIANT),user)
+      ifeq (8.1.0, $(strip $(PLATFORM_VERSION)))
       # delete origin system module
       Y_REMOVE_PRODUCT_PACKAGES += \
       	MusicBspPlus \
@@ -243,7 +244,62 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
       # third part module
       Y_REMOVE_PRODUCT_PACKAGES += \
   		Baidu_Location
+      else ifneq (5.1, $(strip $(PLATFORM_VERSION)))
+        Y_REMOVE_PRODUCT_PACKAGES += \
+          Calendar \
+          Music \
+          MusicFX \
+          batterywarning \
+          SchedulePowerOnOff \
+          BatteryWarning \
+          SDKGallery \
+          Gallery2 \
+          MtkBt \
+          mtkbt \
+          SoundRecorder \
+          Calendar
 
+        #add by Heaven start
+        Y_REMOVE_PRODUCT_PACKAGES += \
+          WallpaperCropper \
+          CalendarProvider \
+          BasicDreams \
+          CalendarImporter \
+          PrintSpooler \
+          BSPTelephonyDevTool \
+          AtciService \
+          LiveWallpapersPicker \
+          LiveWallpapers \
+          VisualizationWallpapers \
+          Galaxy4 \
+          HoloSpiralWallpaper \
+          NoiseField \
+          PhaseBeam \
+          SmartcardService \
+          DrmProvider \
+          Omacp \
+          OneTimeInitializer \
+          KeyChain \
+          ManagedProvisioning \
+          PhotoTable \
+          FMRadio \
+          HTMLViewer \
+          LatinIME \
+          Stk1 \
+          VpnDialogs \
+          DeskClock \
+          Email \
+          QuickSearchBox \
+          FWUpgrade \
+          PacProcessor \
+          NlpService \
+          ProxyHandler \
+          FWUpgradeProvider \
+          UserDictionaryProvider \
+          MTKAndroidSuiteDaemon \
+          Bluetooth
+        #add by Heaven end
+      endif
     endif
   endif
 ## wilber end #}
