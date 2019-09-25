@@ -4,8 +4,7 @@
 ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 
 PRODUCT_PACKAGES += \
-    YGPS \
-    YOcLogDog
+    YGPS
 
 PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
 
