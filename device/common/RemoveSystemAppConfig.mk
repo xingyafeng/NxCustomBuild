@@ -148,7 +148,7 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
   endif
 
 ## wilber start #{
-  ifneq ($(strip $(filter $(call get_yov_board), ck02)), )
+  ifneq ($(strip $(filter $(call get_yov_board), ck02 ck03)), )
     ifeq ($(TARGET_BUILD_VARIANT),user)
       ifeq (8.1.0, $(strip $(PLATFORM_VERSION)))
       # delete origin system module

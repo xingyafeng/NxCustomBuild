@@ -8,7 +8,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
 
-ifneq ($(strip $(filter $(call get_yov_board), ck02)), )
+ifneq ($(strip $(filter $(call get_yov_board), ck02 ck03)), )
 
 # 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk gocsdks
