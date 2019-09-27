@@ -244,7 +244,7 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
       # third part module
       Y_REMOVE_PRODUCT_PACKAGES += \
   		Baidu_Location
-      else ifneq (5.1, $(strip $(PLATFORM_VERSION)))
+      else ifeq (5.1, $(strip $(PLATFORM_VERSION)))
         Y_REMOVE_PRODUCT_PACKAGES += \
           Calendar \
           Music \
