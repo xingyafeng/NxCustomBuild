@@ -12,6 +12,7 @@ fi
 
 if [[ -n "$YUNOVO_SYSTEM_VERSION_FOTA" ]];then
  echo "ro.nxos.version=$YUNOVO_SYSTEM_VERSION_FOTA"
+ echo "ro.yunovo.system.version.fota=$YUNOVO_SYSTEM_VERSION_FOTA"
 fi
 
 if [[ -n "$YUNOVO_RELEASE_TAG" ]];then
