@@ -56,7 +56,8 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
           FWUpgradeProvider \
           UserDictionaryProvider \
           MTKAndroidSuiteDaemon \
-          Bluetooth
+          Bluetooth \
+          Dialer
 #add by Heaven end
   endif
 
