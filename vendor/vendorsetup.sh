@@ -1,6 +1,9 @@
 #!/bin/bash
 #最先生效的文件，初始化一些环境变量
 
+# Add source Flag
+export SOURCE_ANDROID=true
+
 # Force JAVA_HOME to point to java 1.7/1.8 if it isn't or is already set.
 export ANDROID_SET_JAVA_HOME=true
 
