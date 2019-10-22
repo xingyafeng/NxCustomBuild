@@ -41,8 +41,6 @@ YUNOVO_BOARD = $(shell find device/ -maxdepth 3 -name $(AFTER_TARGET_PRODUCT) | 
 # 客制化产品路径
 YUNOVO_DEVICE_P := $(shell dirname `find device/ -name AndroidProducts.mk | egrep $(AFTER_TARGET_PRODUCT)`)
 # YUNOVO_DEVICE_P := device/$(YUNOVO_BOARD)/$(TARGET_PRODUCT)
-else
-$(error "Do not lunch ...")
 endif
 
 # 是否为zen平台构建.
