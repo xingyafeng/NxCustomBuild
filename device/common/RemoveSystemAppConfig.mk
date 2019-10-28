@@ -201,7 +201,8 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
   		Protips \
   		QuickSearchBox \
   		SoundRecorder \
-  		UserDictionaryProvider
+		UserDictionaryProvider \
+		DocumentsUI
 
       # MTK module
       # MtkLauncher3
