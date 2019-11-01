@@ -240,8 +240,7 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
       Y_REMOVE_PRODUCT_PACKAGES += \
   		AtciService \
   		CDS_INFO \
-  		MtkTelecomUnitTests \
-  		YGPS
+		MtkTelecomUnitTests
 
       # third part module
       Y_REMOVE_PRODUCT_PACKAGES += \
