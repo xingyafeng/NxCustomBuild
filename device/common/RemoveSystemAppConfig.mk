@@ -234,8 +234,7 @@ ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
   		MtkMms \
   		MtkNlp \
   		MtkWallpaperPicker \
-                MusicBspPlus \
-                MtkDocumentsUI
+  		MusicBspPlus
 
       # mtk test module
       Y_REMOVE_PRODUCT_PACKAGES += \
