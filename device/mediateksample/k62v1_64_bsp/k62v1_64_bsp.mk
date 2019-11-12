@@ -13,6 +13,10 @@ $(warning "YUNOVO_CUSTOM = ${YUNOVO_CUSTOM}")
 ifeq ($(YUNOVO_CUSTOM), yes)
 PRODUCT_PACKAGES += libsys_yov
 
+# 临时移除com.yunovo.device.manager　boot jar
+Y_REMOVE_PRODUCT_BOOT_JARS += \
+	com.yunovo.device.manager
+
 #PRODUCT_DEFAULT_PROPERTY_OVERRIDES
 #PRODUCT_PROPERTY_OVERRIDES += ro.yov.sys.custom=true
 ADDITIONAL_BUILD_PROPERTIES += ro.yov.sys.custom=true
