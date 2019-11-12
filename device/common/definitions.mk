@@ -31,3 +31,16 @@ endef
 define get-app-version
   $(subst $(1),,$(2))
 endef
+
+# 蓝牙支持的版型
+BT_SUPPORT_BOARD := k21 mk21 mk01 mk26 mk28 ms16 ms18
+define is-support-bluetoth
+  $(filter $(YOV_BOARD), $(BT_SUPPORT_BOARD))
+endef
+
+# 实例
+ifeq ($(words $(call is-support-bluetoth)),1)
+#表示支持
+else ifneq ($(words $(call is-support-bluetoth)),0)
+#表示不支持
+endif
