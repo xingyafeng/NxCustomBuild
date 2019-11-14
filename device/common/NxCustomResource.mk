@@ -1,14 +1,30 @@
-# yunovo apps config
+# Yunovo config
 
 # #################### Jenkins构建默认编译模块
+
 ifeq ($(strip $(IS_PUBLIC_VERSION)), false)
 
+# 系统预制应用
 PRODUCT_PACKAGES += \
     YGPS
 
+# 云智核心模块
 PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
+# 背光
+PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
+# 提供一些给APP层面使用的接口和一些调试功能
+PRODUCT_PACKAGES += YOcCoreServer
+# SSH
+PRODUCT_PACKAGES += ssh
+# dropbear
+PRODUCT_PACKAGES += dropbear
+# dropbearkey
+PRODUCT_PACKAGES += dropbearkey
 
-ifneq ($(strip $(filter $(call get_yov_board), ck02 ck03)), )
+# ######################################################################### 系统预制应用
+
+# 蓝牙模块支持的情况
+ifneq ($(strip $(filter $(call get_yov_board), ck03 ck05)), )
 
 # 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk gocsdks
@@ -17,7 +33,6 @@ else
 
 # 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk gocsdks
-
 
 # 外置GPS模块，目前仅提供给VST使用.
 PRODUCT_PACKAGES += \
@@ -29,9 +44,6 @@ PRODUCT_PACKAGES += \
 # 千行GPS SDK
 PRODUCT_PACKAGES += \
        librtcm
-
-endif
-
 
 # 蓝牙主从功能切换
 PRODUCT_PACKAGES += \
@@ -57,26 +69,15 @@ PRODUCT_BOOT_JARS += \
 	yunovobluetooth
 
 # yunovo蓝牙协议栈
-ifeq (1,$(filter 1,$(shell echo "$$(( $(PLATFORM_SDK_VERSION) > 23 ))" )))
+ifeq ($(shell expr $(PLATFORM_SDK_VERSION) \> 23), 1)
 
-PRODUCT_PACKAGES += \
-	yunbluetooth.default
+PRODUCT_PACKAGES += yunbluetooth.default
 
-endif
+endif #蓝牙协议栈 end
 
+endif #蓝牙各个版型支持情况 end
 
-
-PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
-
-# 提供一些给APP层面使用的接口和一些调试功能
-PRODUCT_PACKAGES += YOcCoreServer
-
-# SSH
-PRODUCT_PACKAGES += ssh
-# dropbear
-PRODUCT_PACKAGES += dropbear
-# dropbearkey
-PRODUCT_PACKAGES += dropbearkey
+# ######################################################################### 系统蓝牙模块
 
 # Zen 支持客制化项目的overlay
 PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
@@ -90,14 +91,17 @@ else
 YUNOVO_LAUNCHER_TYPE = droidcar
 endif
 
-endif # SPT_VERSION_NO endif
-# ####################
+# ######################################################################### 系统默认桌面
+
+endif # IS_PUBLIC_VERSION endif
+# @@@@@@@@@@@@@@@@@@@@@@@
 
 ifeq ($(strip $(YUNOVO_LAUNCHER_TYPE)),)
 YUNOVO_LAUNCHER_TYPE := Android
 endif
 
 # wilber start #{
+# 共享内存服务,提供给摄像头预览数据．
 ifeq ($(strip $(YUNOVO_MEDIA_SHAREBUFFER)),yes)
 ADDITIONAL_BUILD_PROPERTIES += yov.sys.sharebuffer_enable=true
 PRODUCT_PACKAGES += libsharebufferservice
