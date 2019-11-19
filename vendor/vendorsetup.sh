@@ -9,24 +9,100 @@ export ANDROID_SET_JAVA_HOME=true
 
 YOVO_IGNORE_LIBS="mt6735_64 mt6735m_64 mt6735m_gmo mt6753_64 mt6737m mt6737m_64_gmo mt6737m_gmo mt6737t mt6737t_64 mt6737t_gmo"
 
+# 硬件平台 芯片信息
+function getcpu() {
+
+    get_build_var TARGET_BOARD_PLATFORM
+}
+
+# android 版本
+function get-platform-version() {
+
+    get_build_var PLATFORM_VERSION
+}
+
+# sdk 版本
+function get-platform-sdk-version() {
+
+    get_build_var PLATFORM_SDK_VERSION
+}
+
+# 设备信息
+function getdevice
+{
+    get_build_var TARGET_DEVICE
+}
+
+# 产品信息
+function getproduct() {
+
+    get_build_var TARGET_PRODUCT
+}
+
+# 硬件信息
+function gethardware() {
+
+    get_build_var TARGET_HARDWARE
+}
+
+# 制造商
+function getmanufacturer() {
+
+    get_build_var PRODUCT_MANUFACTURER
+}
+
+function getout
+{
+    get_build_var PRODUCT_OUT
+}
+
+function getdevicepath() {
+
+    croot
+    dirname `find device/ -name AndroidProducts.mk` | egrep `getdevice`
+}
+
+function cdevice()
+{
+    local T=$(gettop)
+    local DEVICE_P=$(getdevicepath)
+
+    if [[ -n "$T" && -n ${DEVICE_P} ]]; then
+        \cd $(gettop)/${DEVICE_P} > /dev/null
+    else
+        echo "Couldn't locate the top of the tree.  Try setting TOP."
+    fi
+}
+
+function cout()
+{
+    local OUT=$(getout)
+
+    if [[ "$OUT" ]];then
+        \cd $(gettop)/${OUT} > /dev/null
+    else
+        echo "Couldn't locate the top of the tree.  Try setting TOP."
+    fi
+}
+
 # shell 所在根路径，唯一且固定
 function y_get_shell_root_path() { echo "$(gettop)/yunovo/NxCustomBuild/shell_common"; }
 
 # 包含所有定制的辅助函数，目录yunovo/build/shell_common 中所有 sh
 function y_include_all_common_shell() {
  local T_S ;local T_SS="`find $(y_get_shell_root_path) -name 'yunovo*.sh'`"
- for T_S in $T_SS; do
+ for T_S in ${T_SS}; do
   echo " include $T_S "
-  . $T_S
+  . ${T_S}
  done
 }
 
 function y_get_ignore_libs() {
  local P;local S;
- for P in $YOVO_IGNORE_LIBS; do
+ for P in ${YOVO_IGNORE_LIBS}; do
   S="$S libs.$P.yo"
  done
- echo $S
+ echo ${S}
 }
 
 #only for android 6.0 , ignore all under libs dir Android.mk yunovo/vendor/eastaeon/libs
