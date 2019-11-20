@@ -10,9 +10,15 @@ export ANDROID_SET_JAVA_HOME=true
 YOVO_IGNORE_LIBS="mt6735_64 mt6735m_64 mt6735m_gmo mt6753_64 mt6737m mt6737m_64_gmo mt6737m_gmo mt6737t mt6737t_64 mt6737t_gmo"
 
 # 硬件平台 芯片信息
-function getcpu() {
+function get-board-platform() {
 
     get_build_var TARGET_BOARD_PLATFORM
+}
+
+# BRM 平台
+function get-brm-platform() {
+
+    get_build_var TARGET_BRM_PLATFORM
 }
 
 # android 版本
@@ -28,44 +34,80 @@ function get-platform-sdk-version() {
 }
 
 # 设备信息
-function getdevice
+function get-device
 {
     get_build_var TARGET_DEVICE
 }
 
 # 产品信息
-function getproduct() {
+function get-product() {
 
     get_build_var TARGET_PRODUCT
 }
 
 # 硬件信息
-function gethardware() {
+function get-hardware() {
 
     get_build_var TARGET_HARDWARE
 }
 
-# 制造商
-function getmanufacturer() {
+# 制造商 <制造商的名称>
+function get-manufacturer() {
 
     get_build_var PRODUCT_MANUFACTURER
 }
 
-function getout
+# 产品型号 <产品的型号，这也是最终用户将看到的>
+function get-product-model() {
+
+    get_build_var PRODUCT_MODEL
+}
+
+# 产品名称 <最终用户将看到的完整产品名，会出现在“关于手机”信息中>
+function get-product-name() {
+
+    get_build_var PRODUCT_NAME
+}
+
+# 产品设备 <该产品的工业设计的名称>
+function get-product-device() {
+
+    get_build_var PRODUCT_DEVICE
+}
+
+# arm 版本
+function get-arch-version() {
+
+    get_build_var TARGET_ARCH
+}
+
+# locales <语言环境>
+function get-locales() {
+
+    get_build_var PRODUCT_LOCALES
+}
+
+# 该产品专门定义的商标 (如果有的话)
+function get-brand() {
+
+    get_build_var PRODUCT_BRAND
+}
+
+function get-out
 {
     get_build_var PRODUCT_OUT
 }
 
-function getdevicepath() {
+function get-device-path() {
 
     croot
-    dirname `find device/ -name AndroidProducts.mk` | egrep `getdevice`
+    dirname `find device/ -name AndroidProducts.mk` | egrep -w `get-device`
 }
 
 function cdevice()
 {
     local T=$(gettop)
-    local DEVICE_P=$(getdevicepath)
+    local DEVICE_P=$(get-device-path)
 
     if [[ -n "$T" && -n ${DEVICE_P} ]]; then
         \cd $(gettop)/${DEVICE_P} > /dev/null
@@ -76,7 +118,7 @@ function cdevice()
 
 function cout()
 {
-    local OUT=$(getout)
+    local OUT=$(get-out)
 
     if [[ "$OUT" ]];then
         \cd $(gettop)/${OUT} > /dev/null
