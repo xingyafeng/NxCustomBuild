@@ -14,7 +14,8 @@ PRODUCT_PACKAGES += yovd init.yunovo.rc libstagefright_soft_mjpeg
 PRODUCT_PACKAGES += libyov lights.$(TARGET_BOARD_PLATFORM)
 # 提供一些给APP层面使用的接口和一些调试功能
 PRODUCT_PACKAGES += YOcCoreServer
-# SSH
+
+# ######################################################################## ssh by lupeng
 PRODUCT_PACKAGES += ssh
 # dropbear
 PRODUCT_PACKAGES += dropbear
