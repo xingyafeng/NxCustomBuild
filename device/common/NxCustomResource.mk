@@ -24,8 +24,9 @@ PRODUCT_PACKAGES += dropbearkey
 
 # ######################################################################### 系统预制应用
 
+
 # 蓝牙模块支持的情况
-ifneq ($(strip $(filter $(call get_yov_board), ck03 ck05)), )
+ifneq ($(strip $(filter $(call get_yov_board), ck03)), )
 
 # 蓝牙模块,[诚谦|顾凯]
 PRODUCT_PACKAGES += blink gocsdk gocsdks
