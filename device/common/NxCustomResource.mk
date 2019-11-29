@@ -34,7 +34,7 @@ PRODUCT_PACKAGES += blink gocsdk gocsdks
 else
 
 # 蓝牙模块,[诚谦|顾凯]
-PRODUCT_PACKAGES += blink gocsdk gocsdks
+PRODUCT_PACKAGES += blink gocsdk gocsdks gocsdks_8_1
 
 # 外置GPS模块，目前仅提供给VST使用.
 PRODUCT_PACKAGES += \
