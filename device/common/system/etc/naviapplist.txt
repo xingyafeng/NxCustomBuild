@@ -4,4 +4,7 @@ mapbar
 baidu
 com.autonavi.amapautolite
 com.autonavi.amapauto
+com.ankai.yunovo.cardvr
+com.fvision.yunovo.dvr
+com.reglink.apps.dvr
 
