@@ -23,11 +23,14 @@ PRODUCT_LOCALES := zh_CN en_US zh_TW
 # 性能优化：任务快照,车机需要最近任务快照
 ADDITIONAL_BUILD_PROPERTIES += persist.enable_task_snapshots=false
 
-# 取消导航栏
 ifeq ($(TARGET_BUILD_VARIANT),user)
+# 取消导航栏
 ADDITIONAL_BUILD_PROPERTIES += qemu.hw.mainkeys=1
 else
 ADDITIONAL_BUILD_PROPERTIES += qemu.hw.mainkeys=0
+
+## do not use fs verify,debug ..
+PRODUCT_SUPPORTS_VERITY := false
 endif
 
 # 默认时区
