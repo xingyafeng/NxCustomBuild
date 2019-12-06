@@ -101,7 +101,7 @@ function get-out
 function get-device-path() {
 
     croot
-    dirname `find device/ -name AndroidProducts.mk` | egrep -w `get-device`
+    dirname `find device/ -name AndroidProducts.mk` | egrep -w  `get-device` --color=never
 }
 
 function cdevice()
