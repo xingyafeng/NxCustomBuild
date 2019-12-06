@@ -127,6 +127,11 @@ function cout()
     fi
 }
 
+function print-config() {
+
+    source build/envsetup.sh && lunch
+}
+
 # shell 所在根路径，唯一且固定
 function y_get_shell_root_path() { echo "$(gettop)/yunovo/NxCustomBuild/shell_common"; }
 
