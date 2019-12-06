@@ -10,15 +10,21 @@ export ANDROID_SET_JAVA_HOME=true
 YOVO_IGNORE_LIBS="mt6735_64 mt6735m_64 mt6735m_gmo mt6753_64 mt6737m mt6737m_64_gmo mt6737m_gmo mt6737t mt6737t_64 mt6737t_gmo"
 
 # 硬件平台 芯片信息
-function get-board-platform() {
+function get-target-board-platform() {
 
     get_build_var TARGET_BOARD_PLATFORM
 }
 
 # BRM 平台
-function get-brm-platform() {
+function get-target-brm-platform() {
 
     get_build_var TARGET_BRM_PLATFORM
+}
+
+# build 类型
+function get-target-build-variant() {
+
+    get_build_var TARGET_BUILD_VARIANT
 }
 
 # android 版本
@@ -34,25 +40,25 @@ function get-platform-sdk-version() {
 }
 
 # 设备信息
-function get-device
+function get-target-device
 {
     get_build_var TARGET_DEVICE
 }
 
 # 产品信息
-function get-product() {
+function get-target-product() {
 
     get_build_var TARGET_PRODUCT
 }
 
 # 硬件信息
-function get-hardware() {
+function get-target-hardware() {
 
     get_build_var TARGET_HARDWARE
 }
 
 # 制造商 <制造商的名称>
-function get-manufacturer() {
+function get-product-manufacturer() {
 
     get_build_var PRODUCT_MANUFACTURER
 }
@@ -76,24 +82,24 @@ function get-product-device() {
 }
 
 # arm 版本
-function get-arch-version() {
+function get-target-arch() {
 
     get_build_var TARGET_ARCH
 }
 
 # locales <语言环境>
-function get-locales() {
+function get-product-locales() {
 
     get_build_var PRODUCT_LOCALES
 }
 
 # 该产品专门定义的商标 (如果有的话)
-function get-brand() {
+function get-product-brand() {
 
     get_build_var PRODUCT_BRAND
 }
 
-function get-out
+function get-product-out
 {
     get_build_var PRODUCT_OUT
 }
@@ -101,7 +107,7 @@ function get-out
 function get-device-path() {
 
     croot
-    dirname `find device/ -name AndroidProducts.mk` | egrep -w  `get-device` --color=never
+    dirname `find device/ -name AndroidProducts.mk` | egrep -w  $(get-target-device) --color=never
 }
 
 function cdevice()
@@ -118,18 +124,25 @@ function cdevice()
 
 function cout()
 {
-    local OUT=$(get-out)
+    local OUT=$(get-product-out)
 
-    if [[ "$OUT" ]];then
+    if [[ -n "$OUT" ]];then
         \cd $(gettop)/${OUT} > /dev/null
     else
         echo "Couldn't locate the top of the tree.  Try setting TOP."
     fi
 }
 
+# 此函数在zzzzz-script中同名,不影响使用.
+# 第一次初始化项目的时候,使用zzzzz-script中的print-config, 或者手动 source;lunch
+# 执行完成之后,会一值使用 vendorsetup.sh中的print-config,除非重新初始化了zzzzz-script脚本.
 function print-config() {
 
-    source build/envsetup.sh && lunch
+    if [[ "${SOURCE_ANDROID}" == "true"  ]]; then
+        source build/envsetup.sh && lunch $(get-target-product)-$(get-target-build-variant)
+    else
+        echo "Do not source project ..."
+    fi
 }
 
 # shell 所在根路径，唯一且固定
