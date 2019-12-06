@@ -139,7 +139,12 @@ function cout()
 function print-config() {
 
     if [[ "${SOURCE_ANDROID}" == "true"  ]]; then
-        source build/envsetup.sh && lunch $(get-target-product)-$(get-target-build-variant)
+        if [[ -d .repo && -f build/core/envsetup.mk && -f Makefile ]];then
+            source build/envsetup.sh && lunch $(get-target-product)-$(get-target-build-variant)
+        else
+            echo "Couldn't locate ANDRODI_TOP . Please change it."
+        fi
+
     else
         echo "Do not source project ..."
     fi
