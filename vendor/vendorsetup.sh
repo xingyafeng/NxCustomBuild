@@ -133,18 +133,26 @@ function cout()
     fi
 }
 
-# 此函数在zzzzz-script中同名,不影响使用.
-# 第一次初始化项目的时候,使用zzzzz-script中的print-config, 或者手动 source;lunch
-# 执行完成之后,会一值使用 vendorsetup.sh中的print-config,除非重新初始化了zzzzz-script脚本.
-function print-config() {
+# lunch default product
+function lunch-config() {
+
+    local target_product=
+    local target_build_variant=
 
     if [[ "${SOURCE_ANDROID}" == "true"  ]]; then
+
+        target_product="$(get-target-product)"
+        target_build_variant="$(get-target-build-variant)"
+
         if [[ -d .repo && -f build/core/envsetup.mk && -f Makefile ]];then
-            source build/envsetup.sh && lunch $(get-target-product)-$(get-target-build-variant)
+            if [[ -n "${target_product}" && -n "${target_build_variant}" ]]; then
+                lunch "${target_product}"-"${target_build_variant}"
+            else
+                lunch
+            fi
         else
             echo "Couldn't locate ANDRODI_TOP . Please change it."
         fi
-
     else
         echo "Do not source project ..."
     fi
