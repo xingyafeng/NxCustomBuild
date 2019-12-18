@@ -141,8 +141,13 @@ function lunch-config() {
 
     if [[ "${SOURCE_ANDROID}" == "true"  ]]; then
 
-        target_product="$(get-target-product)"
-        target_build_variant="$(get-target-build-variant)"
+        if [[ -f ${OUT}/previous_build_config.mk ]]; then
+            target_product="`cat ${OUT}/previous_build_config.mk | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $1 }'`"
+            target_build_variant="`cat ${OUT}/previous_build_config.mk | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $2 }'`"
+        else
+            target_product="$(get-target-product)"
+            target_build_variant="$(get-target-build-variant)"
+        fi
 
         if [[ -d .repo && -f build/core/envsetup.mk && -f Makefile ]];then
             if [[ -n "${target_product}" && -n "${target_build_variant}" ]]; then
