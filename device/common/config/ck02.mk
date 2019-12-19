@@ -157,4 +157,9 @@ ifeq ($(TARGET_BUILD_VARIANT),user)
 	  Dialer
 	#add by Heaven end
   endif
-endif
+else # TARGET_BUILD_VARIANT else
+	Y_REMOVE_PRODUCT_PACKAGES += \
+		VstUpdate_81 \
+		VstAssist_81
+
+endif # TARGET_BUILD_VARIANT endif
