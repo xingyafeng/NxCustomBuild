@@ -81,6 +81,10 @@ endif #蓝牙各个版型支持情况 end
 
 # ######################################################################### 系统蓝牙模块
 
+# yunovo-framework
+PRODUCT_PACKAGES += yunovo-framework
+PRODUCT_BOOT_JARS += yunovo-framework
+
 # Zen 支持客制化项目的overlay
 PRODUCT_PACKAGE_OVERLAYS += $(YUNOVO_ROOT)/$(YUNOVO_CONFIG)/$(YUNOVO_CUSTOM_P)/overlay
 
