@@ -41,5 +41,11 @@ ADDITIONAL_BUILD_PROPERTIES += yunovo.support.nerver_screenoff=true
 
 # 禁用搜索引擎管理服务,先关闭,com/android/internal/app/AssistUtils.java:160引用报错
 #ADDITIONAL_BUILD_PROPERTIES += config.disable_searchmanager=true
+
+# yunovo-framework,基础库，只要其它代码仓库有引用就需要添加此模块，否则报错
+# 后续尽量做兼容
+PRODUCT_PACKAGES += yunovo-framework
+PRODUCT_BOOT_JARS += yunovo-framework
+
 endif
 ### wilber end #}
