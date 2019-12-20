@@ -135,11 +135,32 @@ function cout()
     fi
 }
 
+# check lunch
+function check_build_variant() {
+
+    case ${default_target_build_variant} in
+
+        user|userdebug|eng)
+            echo true
+        ;;
+
+        *)
+            echo false
+        ;;
+    esac
+}
+
 # lunch default product
 function lunch-config() {
 
     local target_product=
     local target_build_variant=
+
+    local default_target_build_variant=
+
+    if [[ -n "$1" ]]; then
+        default_target_build_variant=$1
+    fi
 
     if [[ "${SOURCE_ANDROID}" == "true"  ]]; then
 
@@ -149,6 +170,10 @@ function lunch-config() {
         else
             target_product=`get-target-product`
             target_build_variant=`get-target-build-variant`
+        fi
+
+        if [[ "`check_build_variant`" == "true" ]]; then
+            target_build_variant=${default_target_build_variant}
         fi
 
         echo '---------------------------------------------'
