@@ -3,6 +3,8 @@
 
 # Add source Flag
 export SOURCE_ANDROID=true
+unset  OUT
+unset  TARGET_PRODUCT
 
 # Force JAVA_HOME to point to java 1.7/1.8 if it isn't or is already set.
 export ANDROID_SET_JAVA_HOME=true
@@ -145,18 +147,20 @@ function lunch-config() {
             target_product="`cat ${OUT}/previous_build_config.mk | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $1 }'`"
             target_build_variant="`cat ${OUT}/previous_build_config.mk | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $2 }'`"
         else
-            target_product="$(get-target-product)"
-            target_build_variant="$(get-target-build-variant)"
+            target_product=`get-target-product`
+            target_build_variant=`get-target-build-variant`
         fi
 
-        if [[ -d .repo && -f build/core/envsetup.mk && -f Makefile ]];then
-            if [[ -n "${target_product}" && -n "${target_build_variant}" ]]; then
-                lunch "${target_product}"-"${target_build_variant}"
-            else
-                lunch
-            fi
+        echo '---------------------------------------------'
+        echo "target_product : ${target_product}"
+        echo "target_build_variant : ${target_build_variant}"
+        echo '---------------------------------------------'
+
+        if [[ -n "${target_product}" && -n "${target_build_variant}" ]]; then
+            lunch "${target_product}"-"${target_build_variant}"
         else
-            echo "Couldn't locate ANDRODI_TOP . Please change it."
+            __err "The target product is null, please check it ..."
+            return 1
         fi
     else
         echo "Do not source project ..."
