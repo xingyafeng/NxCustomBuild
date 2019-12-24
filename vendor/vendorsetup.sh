@@ -3,7 +3,6 @@
 
 # Add source Flag
 export SOURCE_ANDROID=true
-unset  OUT
 unset  TARGET_PRODUCT
 
 # Force JAVA_HOME to point to java 1.7/1.8 if it isn't or is already set.
@@ -153,6 +152,8 @@ function check_build_variant() {
 # lunch default product
 function lunch-config() {
 
+    local previous_mk=`find out/ -maxdepth 4 -name previous_build_config.mk -type f`
+
     local target_product=
     local target_build_variant=
 
@@ -164,9 +165,9 @@ function lunch-config() {
 
     if [[ "${SOURCE_ANDROID}" == "true"  ]]; then
 
-        if [[ -f ${OUT}/previous_build_config.mk ]]; then
-            target_product="`cat ${OUT}/previous_build_config.mk | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $1 }'`"
-            target_build_variant="`cat ${OUT}/previous_build_config.mk | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $2 }'`"
+        if [[ -f ${previous_mk} ]]; then
+            target_product="`cat ${previous_mk} | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $1 }'`"
+            target_build_variant="`cat ${previous_mk} | grep ^PREVIOUS_BUILD_CONFIG | awk '{ print $3 }' | awk -F '-' '{ print $2 }'`"
         else
             target_product=`get-target-product`
             target_build_variant=`get-target-build-variant`
