@@ -44,5 +44,23 @@ ADDITIONAL_BUILD_PROPERTIES += yunovo.support.nerver_screenoff=true
 
 # 禁用搜索引擎管理服务,先关闭,com/android/internal/app/AssistUtils.java:160引用报错
 #ADDITIONAL_BUILD_PROPERTIES += config.disable_searchmanager=true
+
+# yunovo-frameworks #{
+YUNOVO_FRAMEWORKS := $(notdir $(call find-file-folder, yunovo, 4, framework))
+
+PRODUCT_PACKAGES += \
+	yunovo-framework
+
+# yunovo-framework boot jar
+ifeq ($(strip $(YUNOVO_FRAMEWORKS)), framework)
+  PRODUCT_BOOT_JARS += yunovo-framework
 endif
+
+# yunovo-frameworks #}
+endif
+
+$(info --------------------------------------------------- )
+$(info 1. YUNOVO_CUSTOM     = $(YUNOVO_CUSTOM))
+$(info 2. YUNOVO_FRAMEWORKS = $(YUNOVO_FRAMEWORKS))
+$(info -------------------------------------------------- )
 ### wilber end #}
