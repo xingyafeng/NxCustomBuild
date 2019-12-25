@@ -4,7 +4,7 @@
 
 $(info including $(call my-dir)/$(strip $(call get_yov_board)).mk ...)
 
-ifeq ($(TARGET_BUILD_VARIANT),user)
+ifneq ($(strip $(filter $(TARGET_BUILD_VARIANT), user userdebug)),)
   ifeq (8.1.0, $(strip $(PLATFORM_VERSION)))
   # delete origin system module
   Y_REMOVE_PRODUCT_PACKAGES += \
@@ -156,7 +156,7 @@ ifeq ($(TARGET_BUILD_VARIANT),user)
 	  Bluetooth \
 	  Dialer
 	#add by Heaven end
-  endif
+  endif # PLATFORM_VERSION endif
 else # TARGET_BUILD_VARIANT else
 	Y_REMOVE_PRODUCT_PACKAGES += \
 		VstUpdate_81 \
