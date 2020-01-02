@@ -56,7 +56,8 @@ ifneq ($(strip $(filter $(TARGET_BUILD_VARIANT), user)),)
 	QuickSearchBox \
 	SoundRecorder \
 	UserDictionaryProvider \
-	DocumentsUI
+	DocumentsUI \
+	FileManager
 
   # MTK module
   # MtkLauncher3
