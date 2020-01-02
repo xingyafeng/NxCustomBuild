@@ -34,6 +34,17 @@ else
 ADDITIONAL_BUILD_PROPERTIES += qemu.hw.mainkeys=0
 endif
 
+# 取消系统镜像验证，user版本在root后可push文件
+# device目录中使用简写
+#PRODUCT_SUPPORTS_VERITY := false
+PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_VERITY := false
+PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_VERITY_FEC := false
+
+# 关闭框架兼容性检查
+# https://source.android.google.cn/devices/architecture/vintf
+PRODUCT_FULL_TREBLE := false
+PRODUCT_FULL_TREBLE_OVERRIDE := false
+
 # 默认时区
 ADDITIONAL_BUILD_PROPERTIES += persist.sys.timezone=Asia/Shanghai
 
