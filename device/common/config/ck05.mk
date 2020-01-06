@@ -89,7 +89,8 @@ ifneq ($(strip $(filter $(TARGET_BUILD_VARIANT), user)),)
 	MtkMms \
 	MtkNlp \
 	MtkWallpaperPicker \
-	MusicBspPlus
+	MusicBspPlus \
+	Stk1
 
   # mtk test module
   Y_REMOVE_PRODUCT_PACKAGES += \
