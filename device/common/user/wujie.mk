@@ -2,7 +2,7 @@
 # ######################################################################## by wujie
 
 # 蓝牙模块支持的版型
-ifneq ($(strip $(filter $(call get_yov_board), ck06)), )
+ifneq ($(strip $(filter $(call get_yov_board), )), )
 
 # 不支持蓝牙的版型
 
