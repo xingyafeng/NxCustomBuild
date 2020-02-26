@@ -62,6 +62,9 @@ ifeq ($(strip $(YUNOVO_FRAMEWORKS)), framework)
 endif
 
 # yunovo-frameworks #}
+
+# FM扩展库
+YUNOVO_EXT_FM := true
 endif
 
 $(info --------------------------------------------------- )
