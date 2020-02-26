@@ -64,7 +64,7 @@ endif
 # yunovo-frameworks #}
 
 # FM扩展库
-YUNOVO_EXT_FM := true
+YUNOVO_EXT_FM := yes
 endif
 
 $(info --------------------------------------------------- )
