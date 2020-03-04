@@ -57,7 +57,8 @@ ifneq ($(strip $(filter $(TARGET_BUILD_VARIANT), user userdebug)),)
 	SoundRecorder \
 	UserDictionaryProvider \
 	DocumentsUI \
-        FileManager
+        FileManager \
+        Stk
 
   # MTK module
   # MtkLauncher3
